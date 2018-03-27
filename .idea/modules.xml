@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/LunchCrunch.iml" filepath="$PROJECT_DIR$/LunchCrunch.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/LunchCrunch.iml" filepath="$PROJECT_DIR$/.idea/LunchCrunch.iml" />
+>>>>>>> 1efd2eebc747c59bfd798cfef46e2e60f8822915
     </modules>
   </component>
 </project>
