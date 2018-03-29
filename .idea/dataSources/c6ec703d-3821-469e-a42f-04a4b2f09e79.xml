@@ -1087,7 +1087,7 @@
     </column>
     <column id="267" parent="236" name="date_active">
       <Position>4</Position>
-      <DataType>date|0</DataType>
+      <DataType>datetime|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="268" parent="236" name="first_name">
