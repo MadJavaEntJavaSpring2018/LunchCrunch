@@ -1,5 +1,8 @@
 package com.lunchcrunch.rest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
@@ -10,6 +13,7 @@ import java.util.Set;
 
 //The java class declares root resource and provider classes
 public class RestApplication extends Application {
+    private final Logger logger = LogManager.getLogger(this.getClass());
 
     //The method returns a non-empty collection with classes, that must be included in the published JAX-RS application
     @Override
