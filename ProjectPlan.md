@@ -9,13 +9,13 @@
  -	[ ] Write Screen Design  
  -	[ ] Write Application FLow
  - [ ] Complete database design
- -	[ ] Create the database, user table, topic table, appointment table and location tables
- -	[ ] Create the user, topic, appointment, and location entity classes and annotate for hibernate
- -	[ ] Create generic dao
+ -	[x] Create the database, user table, topic table, appointment table and location tables
+ -	[x] Create the user, topic, appointment, and location entity classes and annotate for hibernate
+ -	[x] Create generic dao
  -	[ ] Set up logging
- -	[ ] Create unit tests using generic dao
+ -	[x] Create unit tests using generic dao
  -	[ ] Create class uml diagram
- - [ ] Weekly Time Log entry
+ - [x] Weekly Time Log entry
 
   
 	
