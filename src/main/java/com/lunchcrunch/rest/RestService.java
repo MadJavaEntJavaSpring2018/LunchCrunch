@@ -56,7 +56,7 @@ public class RestService {
     @PUT
 //    @Produces(MediaType.APPLICATION_JSON)
     @Path("/users/{param}")
-    public Response createUser(@PathParam("param") String apiKey) {
+    public Response createUser(@PathParam("param") String param) {
         userApi = new UserApi();
 
         //TODO remove test variables
