@@ -15,7 +15,7 @@ CREATE TABLE user
   organization TEXT       NULL,
   CONSTRAINT user_id_uindex
   UNIQUE (id)
-)lunchcrunch_main_database
+)
   ENGINE = InnoDB;
 
 
