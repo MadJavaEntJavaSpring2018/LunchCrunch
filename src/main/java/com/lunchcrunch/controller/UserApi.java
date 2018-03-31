@@ -9,7 +9,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 /**
  * The UserApi class contains all the methods needed by the LunchCrunch RestService class to
@@ -18,7 +24,12 @@ import java.util.List;
 public class UserApi {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    private static final String INVALID_API_KEY = "Invalid Key";
 
+
+    /**
+     * The User dao.
+     */
     GenericDao userDao = new GenericDao(User.class);
 
     /**
@@ -29,42 +40,45 @@ public class UserApi {
     }
 
     /**
-     * Add user string.
+     * Add user
      *
-     * @param lastName  the last name
-     * @param firstName the first name
+     * @param lastName     the last name
+     * @param firstName    the first name
      * @param organisation the organisation
      * @return the string
      */
     public String addUser(String lastName, String firstName, String organisation) {
-        String apiKey = "1234567890";
 
-        List<User> users;
+        String apiKey = generateApiKey();
 
-        return parseUserIntoJson(users);
+        User user = new User();
+        user.setKey(apiKey);
+        user.setActive(TRUE);
+        user.setLastName(lastName);
+        user.setFirstName(firstName);
+        user.setOrganization(organisation);
+        user.setDateActive(LocalDateTime.now());
+
+        userDao.insert(user);
+
+        return apiKey;
     }
 
     /**
-     * Gets all users.
+     * Get all users.
      *
      * @param apiKey the api key
      * @return all users in json format
      */
     public String getAllUsers(String apiKey) {
+
+        if (!validApiKey(apiKey)) {
+            return INVALID_API_KEY;
+        }
+
         List<User> users;
 
         return parseUserIntoJson(users);
-    }
-
-    /**
-     * The validateApiKey method will validate that the API key passed to it exists on the user table
-     *
-     * @param apiKey the api key
-     * @return the boolean
-     */
-    public boolean validateApiKey(String apiKey) {
-
-        return true;
     }
 
     /**
@@ -105,9 +119,43 @@ public class UserApi {
 
     }
 
+    /**
+     * The generateApiKey method generates a 20 byte API Key
+     * @return String API Key
+     */
     private String generateApiKey() {
 
-        return "1234567890";
+        byte[] byteArray = new byte[20];
+        String generatedString = "";
+
+        while (TRUE) {
+            new Random().nextBytes(byteArray);
+            generatedString = new String(byteArray, Charset.forName("UTF-8"));
+
+            if (!validApiKey(generatedString)) {
+                break;
+            }
+        }
+
+        return generatedString;
     }
+
+    /**
+     * The validateApiKey method will validate that the API key passed to it exists on the user table
+     *
+     * @param apiKey the api key
+     * @return the boolean
+     */
+    public boolean validApiKey(String apiKey) {
+
+        List<User> users = userDao.getByPropertyEqual("key", apiKey);
+
+        if (users.size() == 0) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
 
 }
