@@ -1,12 +1,14 @@
 package com.lunchcrunch.rest;
 
+import com.lunchcrunch.controller.AppointmentApi;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
 //Defines the base URI for all resource URIs.
-@ApplicationPath("/LunchCrunch")
+@ApplicationPath("/services")
 
 //The java class declares root resource and provider classes
 public class RestApplication extends Application {
@@ -17,6 +19,7 @@ public class RestApplication extends Application {
     public Set<Class<?>> getClasses() {
         HashSet h = new HashSet<Class<?>>();
         h.add(RestService.class );
+        h.add(AppointmentApi.class);
         return h;
     }
 }

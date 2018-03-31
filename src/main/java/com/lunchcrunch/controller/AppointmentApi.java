@@ -28,8 +28,7 @@ public class AppointmentApi {
         String       jasonOutput    = "[";
         int          count          = 0;
 
-        for (Appointment index : appointments)
-        {
+        for (Appointment index : appointments)  {
             count = count + 1;
             if (count == appointments.size()) {
                 jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + "]";
