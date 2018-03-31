@@ -1,4 +1,4 @@
-drop database ;
+drop database lunchcrunch_main_database;
 create database lunchcrunch_main_database;
 use lunchcrunch_main_database;
 
