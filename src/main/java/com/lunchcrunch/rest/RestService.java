@@ -15,7 +15,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * The RestService class contains one method each for each of the API available functions
+ * The RestService class contains one method each for each of the API available functions:
+ *
  *
  */
 @Path("/lunchcrunch")
@@ -33,12 +34,9 @@ public class RestService {
      */
     @GET
 //    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/users")
-    public Response getAllUsers() {
+    @Path("/users/{apiKey}")
+    public Response getAllUsers(@PathParam("apiKey") String apiKey) {
         userApi = new UserApi();
-
-        //TODO remove test variables
-        String apiKey = "1234567890";
 
         String jsonString  = userApi.getAllUsers(apiKey);
 
@@ -57,8 +55,8 @@ public class RestService {
      */
     @PUT
 //    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/users")
-    public Response createUser() {
+    @Path("/users/{param}")
+    public Response createUser(@PathParam("param") String apiKey) {
         userApi = new UserApi();
 
         //TODO remove test variables
