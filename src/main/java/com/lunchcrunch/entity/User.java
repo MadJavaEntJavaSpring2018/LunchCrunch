@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.Table;
 import javax.persistence.*;
 
 /**

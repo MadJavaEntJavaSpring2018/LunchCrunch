@@ -1,6 +1,5 @@
-package edu.matc.patientWebService;
+package com.lunchcrunch.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lunchcrunch.entity.Appointment;
 import com.lunchcrunch.persistence.GenericDao;
@@ -10,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 
 @Path("/appointments")
@@ -19,20 +19,27 @@ public class AppointmentApi {
     // The Java method will produce content identified by the MIME Media type "json"
     @Produces("application/json")
 
-    public Response getLetter() throws JsonProcessingException {
-        // Return a simple message
-
-        ObjectMapper mapper = new ObjectMapper();
-        String jformatoutput = "[";
+    public Response getAllAppointments() throws Exception {
 
         GenericDao genericDao = new GenericDao(Appointment.class);
-        Appointment patient = (Appointment) genericDao.getById(1);
-        //String output = patient.getNotes();
+        List<Appointment> appointments = (List<Appointment>)genericDao.getAll();
 
-        jformatoutput = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(patient.getFirstName()) + "]";
+        ObjectMapper mapper         = new ObjectMapper();
+        String       jasonOutput    = "[";
+        int          count          = 0;
+
+        for (Appointment index : appointments)
+        {
+            count = count + 1;
+            if (count == appointments.size()) {
+                jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + "]";
+            } else {
+                jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + ",";
+            }
+        }
 
         //return Response.status(200).entity(output).build();
-        return Response.ok(jformatoutput, MediaType.APPLICATION_JSON).build();
-
+        return Response.ok(jasonOutput, MediaType.APPLICATION_JSON).build();
     }
 }
+

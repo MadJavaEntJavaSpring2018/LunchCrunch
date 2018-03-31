@@ -39,7 +39,7 @@ class UserDaoTest {
 
         User retrievedUser = (User) dao.getById(3);
         assertNotNull(retrievedUser);
-        assertEquals("Mike", retrievedUser.getFirstName());
+        assertEquals("Fred", retrievedUser.getFirstName());
 
     }
 

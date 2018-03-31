@@ -42,6 +42,7 @@ public class Appointment implements Serializable {
 
     private Topic topic;
 
+    @Column(name = "date_time")
     private LocalDateTime dateTime;
 
     public int getId() {
