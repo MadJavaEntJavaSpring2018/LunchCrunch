@@ -52,6 +52,11 @@ public class UserApi {
         return parseUserIntoJson(users);
     }
 
+    public boolean validateApiKey(String apiKey) {
+
+        return true;
+    }
+
     /**
      * The parseIntoJson method takes the List of User objects and parses them into a json string
      * @param users
