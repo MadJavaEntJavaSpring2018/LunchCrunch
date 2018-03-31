@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lunchcrunch.entity.User;
+import com.lunchcrunch.persistence.GenericDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +17,9 @@ import java.util.List;
  */
 public class UserApi {
     private final Logger logger = LogManager.getLogger(this.getClass());
+
+
+    GenericDao userDao = new GenericDao(User.class);
 
     /**
      * Instantiates a new User api.
@@ -101,5 +105,9 @@ public class UserApi {
 
     }
 
+    private String generateApiKey() {
+
+        return "1234567890";
+    }
 
 }
