@@ -1,5 +1,4 @@
-package com.lunchcrunch.controller;
-
+package com.lunchcrunch.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -10,15 +9,14 @@ import java.util.Set;
 @ApplicationPath("/LunchCrunch")
 
 //The java class declares root resource and provider classes
-public class LunchCrunchResources extends Application {
+public class RestApplication extends Application {
 
     //The method returns a non-empty collection with classes, that must be included in the published
     //JAX-RS application
     @Override
     public Set<Class<?>> getClasses() {
         HashSet h = new HashSet<Class<?>>();
-        h.add(UserApi.class );
-        h.add(AppointmentApi.class);
+        h.add(RestService.class );
         return h;
     }
 }
