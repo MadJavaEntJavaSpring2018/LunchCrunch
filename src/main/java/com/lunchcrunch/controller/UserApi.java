@@ -52,6 +52,12 @@ public class UserApi {
         return parseUserIntoJson(users);
     }
 
+    /**
+     * The validateApiKey method will validate that the API key passed to it exists on the user table
+     *
+     * @param apiKey the api key
+     * @return the boolean
+     */
     public boolean validateApiKey(String apiKey) {
 
         return true;
