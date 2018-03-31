@@ -25,6 +25,7 @@ public class UserApi {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     private static final String INVALID_API_KEY = "Invalid Key";
+    private static final String NOTHING_FOUND = "";
 
 
     /**
@@ -76,9 +77,13 @@ public class UserApi {
             return INVALID_API_KEY;
         }
 
-        List<User> users;
+        List<User> users = userDao.getAll();
 
-        return parseUserIntoJson(users);
+        if (users.size() > 0) {
+            return parseUserIntoJson(users);
+        } else {
+            return NOTHING_FOUND;
+        }
     }
 
     /**

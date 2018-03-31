@@ -86,6 +86,7 @@ public class RestService {
     @Path("/appointments")
     public Response getAllAppointments() {
 
+        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
     }
 
     /**
@@ -98,6 +99,7 @@ public class RestService {
     @Path("/appointments")
     public Response createAppointment() {
 
+        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
     }
 
     /**
@@ -110,6 +112,7 @@ public class RestService {
     @Path("/locations")
     public Response getAllLocations() {
 
+        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
     }
 
     /**
@@ -122,6 +125,7 @@ public class RestService {
     @Path("/locations")
     public Response createlocation() {
 
+        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
     }
 
     /**
@@ -134,6 +138,7 @@ public class RestService {
     @Path("/topics")
     public Response getAllTopics() {
 
+        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
     }
 
     /**
@@ -146,6 +151,7 @@ public class RestService {
     @Path("/topics")
     public Response createTopic() {
 
+        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
     }
 
 }
