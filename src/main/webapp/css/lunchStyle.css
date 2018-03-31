@@ -1,5 +1,5 @@
 header {
-    background-color: 	#fff;
+    background-color: #fff3d5;
     /* background-image: "#"; */
     width: 96%;
     padding: 25px;
@@ -16,7 +16,7 @@ header a {
 
 header h1 {
     text-align: left;
-    color: #fff;
+    color: #c4b49e;
     padding-left: 5%;
     text-shadow: 0 -1px 5px rgba(0, 0, 0, .9), 0 0 5px rgba(0, 0, 0, .8);
 }
@@ -167,14 +167,14 @@ nav ul a {
 
 body{
     background: #b6c4b0; /* Old browsers */
-    background: -moz-linear-gradient(45deg, #c4c26e 0%, #e7d37e 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(45deg, #c49880 0%, #e79183 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(45deg, #a4c483 0%, #d2e78f 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(45deg, #c4b26c 0%, #e7d37e 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg, #c4ac83 0%, #e7c8b8 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg, #c4b695 0%, #e7d2a8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6dc497', endColorstr='#55c8e7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 footer{
-    background-color: 	#fff;
+    background-color: #fff3d5;
     /* background-image: "#"; */
     width: 96%;
     padding: 25px;
