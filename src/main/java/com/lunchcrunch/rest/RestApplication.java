@@ -1,7 +1,5 @@
-package com.lunchcrunch.rest;
+package com.lunchcrunch.controller;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -9,17 +7,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 //Defines the base URI for all resource URIs.
-@ApplicationPath("/") //You may want to add a value here so that all traffic isn't routed to the class below.
+@ApplicationPath("/LunchCrunch")
 
 //The java class declares root resource and provider classes
-public class RestApplication extends Application {
-    private final Logger logger = LogManager.getLogger(this.getClass());
+public class LunchCrunchResources extends Application {
 
-    //The method returns a non-empty collection with classes, that must be included in the published JAX-RS application
+    //The method returns a non-empty collection with classes, that must be included in the published
+    //JAX-RS application
     @Override
     public Set<Class<?>> getClasses() {
         HashSet h = new HashSet<Class<?>>();
-        h.add(RestService.class );
+        h.add(UserApi.class );
+        h.add(AppointmentApi.class);
         return h;
     }
 }
