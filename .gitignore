@@ -41,10 +41,10 @@
 /log/
 /logs/
 /lib/
-/src/main/database.properties
-/src/main/hibernate.cfg.xml
-/src/test/database.properties
-/src/test/hibernate.cfg.xml
+/src/main/resources/database.properties
+/src/main/resources/hibernate.cfg.xml
+/src/test/resources/database.properties
+/src/test/resources/hibernate.cfg.xml
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
