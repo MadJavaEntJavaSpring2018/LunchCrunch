@@ -1,6 +1,8 @@
 package com.lunchcrunch.persistence;
 
 import com.lunchcrunch.entity.Appointment;
+import com.lunchcrunch.entity.Location;
+import com.lunchcrunch.entity.Topic;
 import com.lunchcrunch.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.lunchcrunch.test.util.Database;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,6 +51,28 @@ class AppointmentDaoTest {
             logger.info("test");
         }
         assertEquals(9, appointments.size());
+
+    }
+
+    /**
+     * Verify that an appointment can be added for a user, topic and location they chose
+     */
+    @Test
+    void addAppointment() {
+
+        GenericDao userDao      = new GenericDao(User.class);
+        GenericDao locationDao  = new GenericDao(Location.class);
+        GenericDao topicDao     = new GenericDao(Topic.class);
+
+        User     user       = (User) userDao.getById(3);
+        Location location   = (Location) locationDao.getById(7);
+        Topic    topic      = (Topic) topicDao.getById(2);
+
+        Appointment newAppointment = new Appointment(user, location, topic, LocalDateTime.now());
+
+        int id = dao.insert(newAppointment);
+
+        assertNotEquals(0, id);
 
     }
 }

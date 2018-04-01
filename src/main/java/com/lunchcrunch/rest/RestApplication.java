@@ -1,6 +1,5 @@
 package com.lunchcrunch.rest;
 
-import com.lunchcrunch.controller.AppointmentApi;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -19,7 +18,6 @@ public class RestApplication extends Application {
     public Set<Class<?>> getClasses() {
         HashSet h = new HashSet<Class<?>>();
         h.add(RestService.class );
-        h.add(AppointmentApi.class);
         return h;
     }
 }

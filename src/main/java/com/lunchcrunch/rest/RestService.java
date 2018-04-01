@@ -3,8 +3,13 @@ package com.lunchcrunch.rest;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lunchcrunch.controller.AppointmentApi;
 import com.lunchcrunch.controller.UserApi;
+import com.lunchcrunch.entity.Appointment;
+import com.lunchcrunch.entity.Location;
+import com.lunchcrunch.entity.Topic;
 import com.lunchcrunch.entity.User;
+import com.lunchcrunch.persistence.GenericDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,6 +17,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -44,7 +50,6 @@ public class RestService {
             return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
         } else {
             return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
-
         }
     }
 
@@ -73,7 +78,6 @@ public class RestService {
         }
     }
 
-
     /**
      * Gets all appointments.
      *
@@ -84,21 +88,37 @@ public class RestService {
     @Path("/appointments")
     public Response getAllAppointments() {
 
-        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
+        AppointmentApi appointApi   = new AppointmentApi();
+
+        String jsonString           = appointApi.getAllAppointments();
+
+        if (jsonString.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+        } else {
+            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+        }
     }
 
-    /**
-     * Create appointment response.
-     *
-     * @return the response
-     */
-    @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/appointments")
-    public Response createAppointment() {
-
-        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
-    }
+//    /**
+//     * Create appointment response.
+//     *
+//     * @return the response
+//     */
+//    @PUT
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Path("/appointments/{userId}{locationId}{topicId}{date}")
+//    public Response createAppointment(@PathParam("userId") int userId,
+//                                      @PathParam("locationId") int locationId,
+//                                      @PathParam("topicId") int topicId,
+//                                      @PathParam("date") String date) {
+//
+//        logger.info("WHAT THE HECk: {} {} {} {} " + userId + locationId );
+//        AppointmentApi appointApi = new AppointmentApi();
+//
+//        String response = appointApi.addAppointment(userId,locationId,topicId,LocalDateTime.parse(date));
+//
+//        return Response.ok(response, MediaType.TEXT_PLAIN).build();
+//    }
 
     /**
      * Gets all locations.

@@ -21,7 +21,8 @@
             <ul>
                 <li><a href="#">stuff</a></li>
                 <li><a href="#">More stuff</a></li>
-                <li><a href="services/appointments">Get All Appointments</a></li>
+                <li><a href="services//lunchcrunch/appointments">Get All Appointments</a></li>
+                <li><a href="services/appointments/3/7/2/test">Add appoinment</a></li>
             </ul>
         </nav>
     </div>
