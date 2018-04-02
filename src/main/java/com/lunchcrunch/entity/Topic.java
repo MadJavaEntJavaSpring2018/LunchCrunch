@@ -30,6 +30,9 @@ public class Topic implements Serializable {
     @JsonIgnore
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
+    public Topic(String description) {
+        this.description = description;
+    }
 
     public int getId() {
         return id;

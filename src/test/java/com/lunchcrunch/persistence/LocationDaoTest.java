@@ -1,12 +1,12 @@
 package com.lunchcrunch.persistence;
 
 import com.lunchcrunch.entity.Location;
+import com.lunchcrunch.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.lunchcrunch.test.util.Database;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,6 +47,23 @@ class LocationDaoTest {
             logger.info("test");
         }
         assertEquals(8, locations.size());
+    }
+    /**
+     * Verify that an location can be added for a user and description they chose
+     */
+    @Test
+    void addLocation() {
+
+        GenericDao userDao      = new GenericDao(User.class);
+        Location location       = new Location();
+
+        User user               = (User) userDao.getById(2);
+        String description      = location.getDescription();
+
+        Location newLocation = new Location(user, description);
+        int id = dao.insert(newLocation);
+
+        assertNotEquals(0, id);
 
     }
 }

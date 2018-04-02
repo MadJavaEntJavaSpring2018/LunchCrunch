@@ -2,26 +2,42 @@ package com.lunchcrunch.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lunchcrunch.entity.Location;
+import com.lunchcrunch.entity.User;
 import com.lunchcrunch.persistence.GenericDao;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-
-@Path("/locations")
 public class LocationApi {
-    // The Java method will process HTTP GET requests
-    @GET
-    // The Java method will produce content identified by the MIME Media type "json"
-    @Produces("application/json")
+    GenericDao genericDao = new GenericDao(Location.class);
+    /**
+     * Instantiates a new Location api.
+     */
+    public LocationApi() {
+    }
+    /**
+     * Add location
+     *
+     * @param userId      the user id
+     * @param description the description
+     * @return the string
+     */
+    public String addLocation(int userId, String description) {
+
+        GenericDao userDao      = new GenericDao(User.class);
+        Location location       = new Location();
+
+        User user               = (User) userDao.getById(userId);
+        description             = location.getDescription();
+
+        Location newLocation = new Location(user, description);
+        int id = genericDao.insert(newLocation);
+
+        return "ok";
+    }
 
     public Response getAllLocations() throws Exception {
 
-        GenericDao genericDao = new GenericDao(Location.class);
         List<Location> locations = (List<Location>)genericDao.getAll();
 
         ObjectMapper mapper         = new ObjectMapper();
