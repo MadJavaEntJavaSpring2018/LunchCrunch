@@ -34,20 +34,58 @@ public class Location implements Serializable {
 
     private User user;
 
+    @Column(name = "description")
     private String description;
 
+    /**
+     * Instantiates a new Location.
+     */
+    public Location() {
+    }
+
+    /**
+     * Instantiates a new Location.
+     *
+     * @param user        the user
+     * @param description the description
+     */
+    public Location(User user, String description) {
+    this.user = user;
+    this.description = description;
+    }
+
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets description.
+     *
+     * @param description the description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
