@@ -7,7 +7,7 @@ CREATE TABLE user
 (
   id           INT AUTO_INCREMENT
     PRIMARY KEY,
-  `key`        TEXT       NULL,
+  api_key      TEXT       NULL,
   active       TINYINT(1) NULL,
   date_active  DATETIME   NULL,
   first_name   TEXT       NULL,

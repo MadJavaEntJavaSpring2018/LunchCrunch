@@ -1,6 +1,5 @@
 package com.lunchcrunch.entity;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
@@ -26,8 +25,9 @@ public class User {
     @GenericGenerator(name = "native", strategy = "native")
     private int id;
 
-    @Column(name = "key")
-    private String key;
+    @JsonIgnore
+    @Column(name = "api_key")
+    private String apiKey;
 
     @Column(name = "active")
     private boolean active;
@@ -41,12 +41,14 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Set<Appointment> appointments = new HashSet<Appointment>();
-
     @Column(name = "organization")
     private String organization;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Appointment> appointments = new HashSet<Appointment>();
+
+
 
     /**
      * Instantiates a new User.
@@ -57,20 +59,20 @@ public class User {
     /**
      * Instantiates a new User.
      *
-     * @param key          the key
+     * @param apiKey          the apiKey
      * @param active       the active
      * @param dateActive   the date active
      * @param firstName    the first name
      * @param lastName     the last name
      * @param organization the organization
      */
-    public User(String key,
+    public User(String apiKey,
                 boolean active,
                 LocalDateTime dateActive,
                 String firstName,
                 String lastName,
                 String organization) {
-        this.key = key;
+        this.apiKey = apiKey;
         this.active = active;
         this.dateActive = dateActive;
         this.firstName = firstName;
@@ -97,21 +99,21 @@ public class User {
     }
 
     /**
-     * Gets key.
+     * Gets apiKey.
      *
-     * @return the key
+     * @return the apiKey
      */
-    public String getKey() {
-        return key;
+    public String getApiKey() {
+        return apiKey;
     }
 
     /**
-     * Sets key.
+     * Sets apiKey.
      *
-     * @param key the key
+     * @param apiKey the apiKey
      */
-    public void setKey(String key) {
-        this.key = key;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     /**
@@ -211,7 +213,7 @@ public class User {
         User user = (User) o;
         return id == user.id &&
                 active == user.active &&
-                Objects.equals(key, user.key) &&
+                Objects.equals(apiKey, user.apiKey) &&
                 Objects.equals(dateActive, user.dateActive) &&
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
@@ -221,14 +223,14 @@ public class User {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, key, active, dateActive, firstName, lastName, organization);
+        return Objects.hash(id, apiKey, active, dateActive, firstName, lastName, organization);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", key='" + key + '\'' +
+                ", apiKey='" + apiKey + '\'' +
                 ", active=" + active +
                 ", dateActive=" + dateActive +
                 ", firstName='" + firstName + '\'' +

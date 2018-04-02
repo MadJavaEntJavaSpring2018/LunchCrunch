@@ -9,9 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.security.SecureRandom;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
@@ -56,6 +53,15 @@ public class UserApi {
 
         User user = new User(apiKey, TRUE, LocalDateTime.now(), firstName, lastName, organisation);
 
+        logger.debug("id:" + user.getId());
+        logger.debug("api key:" + user.getApiKey());
+        logger.debug("active:" + user.isActive());
+        logger.debug("date active:" + user.getDateActive());
+        logger.debug("lastname:" + user.getLastName());
+        logger.debug("firstname:" + user.getFirstName());
+        logger.debug("organization:" + user.getOrganization());
+
+
         int id = userDao.insert(user);
 
         return apiKey;
@@ -91,7 +97,7 @@ public class UserApi {
      */
     public boolean validApiKey(String apiKey) {
 
-        List<User> users = userDao.getByPropertyEqual("key", apiKey);
+        List<User> users = userDao.getByPropertyEqual("apiKey", apiKey);
 
         if (users.size() == 0) {
             return FALSE;
@@ -173,6 +179,7 @@ public class UserApi {
             randomString.append(stringSeed.charAt(index));
         }
         String randomStringStr = randomString.toString();
+
         return randomStringStr;
     }
 }

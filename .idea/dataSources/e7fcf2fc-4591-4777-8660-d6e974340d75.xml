@@ -1084,7 +1084,7 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="268" parent="239" name="key">
+    <column id="268" parent="239" name="api_key">
       <Position>2</Position>
       <DataType>text|0</DataType>
       <ColumnKind>normal</ColumnKind>
