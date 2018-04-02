@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
@@ -125,25 +126,42 @@ public class UserApi {
     }
 
     /**
-     * The generateApiKey method generates a 20 byte API Key
+     * The generateApiKey method generates the API Key
+     *
      * @return String API Key
      */
-    private String generateApiKey() {
+    public String generateApiKey() {
 
-        byte[] byteArray = new byte[20];
-        String generatedString = "";
-
+        String apiKey = "";
         while (TRUE) {
-            new Random().nextBytes(byteArray);
-            generatedString = new String(byteArray, Charset.forName("UTF-8"));
-
-            if (!validApiKey(generatedString)) {
+            apiKey = generateRandomString();
+            if (!validApiKey(apiKey)) {
                 break;
             }
         }
 
-        return generatedString;
+        return apiKey;
     }
+
+    /**
+     * Generate API key string
+     *
+     * @return 10 byte string containing random characters
+     */
+    protected String generateRandomString() {
+
+        String stringSeed = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder randomString = new StringBuilder();
+        Random rnd = new Random();
+
+        while (randomString.length() < 10) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * stringSeed.length());
+            randomString.append(stringSeed.charAt(index));
+        }
+        String randomStringStr = randomString.toString();
+        return randomStringStr;
+    }
+
 
     /**
      * The validateApiKey method will validate that the API key passed to it exists on the user table

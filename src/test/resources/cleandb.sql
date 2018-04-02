@@ -27,7 +27,3 @@ insert into `appointment` values (6,2,4,3,'2017-12-20 14:00:00');
 insert into `appointment` values (7,2,5,4,'2018-02-10 10:00:00');
 insert into `appointment` values (8,3,6,1,'2018-04-03 11:00:00');
 insert into `appointment` values (9,3,7,2,'2018-01-17 18:00:00');
-select * from user;
-select * from appointment;
-select * from location;
-select * from topic;

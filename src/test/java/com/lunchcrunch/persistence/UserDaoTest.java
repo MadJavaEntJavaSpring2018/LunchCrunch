@@ -1,5 +1,6 @@
 package com.lunchcrunch.persistence;
 
+import com.lunchcrunch.controller.UserApi;
 import com.lunchcrunch.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,6 +42,15 @@ class UserDaoTest {
         assertNotNull(retrievedUser);
         assertEquals("Fred", retrievedUser.getFirstName());
 
+    }
+
+    @Test
+    void testgenerateApiKey() {
+        UserApi userApi = new UserApi();
+        String apiKey = userApi.generateApiKey();
+        logger.debug("Generated API Key: " + apiKey);
+        String testApiKey = apiKey;
+        assertEquals(testApiKey, apiKey);
     }
 
 }
