@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
@@ -53,15 +54,9 @@ public class UserApi {
 
         String apiKey = generateApiKey();
 
-        User user = new User();
-        user.setKey(apiKey);
-        user.setActive(TRUE);
-        user.setLastName(lastName);
-        user.setFirstName(firstName);
-        user.setOrganization(organisation);
-        user.setDateActive(LocalDateTime.now());
+        User user = new User(apiKey, TRUE, LocalDateTime.now(), firstName, lastName, organisation);
 
-        userDao.insert(user);
+        int id = userDao.insert(user);
 
         return apiKey;
     }
@@ -86,6 +81,25 @@ public class UserApi {
             return NOTHING_FOUND;
         }
     }
+
+
+    /**
+     * The validateApiKey method will validate that the API key passed to it exists on the user table
+     *
+     * @param apiKey the api key
+     * @return the boolean
+     */
+    public boolean validApiKey(String apiKey) {
+
+        List<User> users = userDao.getByPropertyEqual("key", apiKey);
+
+        if (users.size() == 0) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
 
     /**
      * The parseIntoJson method takes the List of User objects and parses them into a json string
@@ -130,7 +144,7 @@ public class UserApi {
      *
      * @return String API Key
      */
-    public String generateApiKey() {
+    private String generateApiKey() {
 
         String apiKey = "";
         while (TRUE) {
@@ -148,7 +162,7 @@ public class UserApi {
      *
      * @return 10 byte string containing random characters
      */
-    protected String generateRandomString() {
+    private String generateRandomString() {
 
         String stringSeed = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder randomString = new StringBuilder();
@@ -161,24 +175,4 @@ public class UserApi {
         String randomStringStr = randomString.toString();
         return randomStringStr;
     }
-
-
-    /**
-     * The validateApiKey method will validate that the API key passed to it exists on the user table
-     *
-     * @param apiKey the api key
-     * @return the boolean
-     */
-    public boolean validApiKey(String apiKey) {
-
-        List<User> users = userDao.getByPropertyEqual("key", apiKey);
-
-        if (users.size() == 0) {
-            return FALSE;
-        } else {
-            return TRUE;
-        }
-    }
-
-
 }

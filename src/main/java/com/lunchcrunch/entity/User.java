@@ -18,14 +18,18 @@ import javax.persistence.*;
  */
 @Entity(name = "User")
 @Table(name = "user")
-public class User implements Serializable {
+//public class User implements Serializable {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private int id;
 
+    @Column(name = "key")
     private String key;
+
+    @Column(name = "active")
     private boolean active;
 
     @Column(name = "date_active")
@@ -41,60 +45,161 @@ public class User implements Serializable {
     @JsonIgnore
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
+    @Column(name = "organization")
     private String organization;
 
+    /**
+     * Instantiates a new User.
+     */
+    public User() {
+    }
+
+    /**
+     * Instantiates a new User.
+     *
+     * @param key          the key
+     * @param active       the active
+     * @param dateActive   the date active
+     * @param firstName    the first name
+     * @param lastName     the last name
+     * @param organization the organization
+     */
+    public User(String key,
+                boolean active,
+                LocalDateTime dateActive,
+                String firstName,
+                String lastName,
+                String organization) {
+        this.key = key;
+        this.active = active;
+        this.dateActive = dateActive;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.organization = organization;
+    }
+
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets key.
+     *
+     * @return the key
+     */
     public String getKey() {
         return key;
     }
 
+    /**
+     * Sets key.
+     *
+     * @param key the key
+     */
     public void setKey(String key) {
         this.key = key;
     }
 
+    /**
+     * Is active boolean.
+     *
+     * @return the boolean
+     */
     public boolean isActive() {
         return active;
     }
 
+    /**
+     * Sets active.
+     *
+     * @param active the active
+     */
     public void setActive(boolean active) {
         this.active = active;
     }
 
+    /**
+     * Gets date active.
+     *
+     * @return the date active
+     */
     public LocalDateTime getDateActive() {
         return dateActive;
     }
 
+    /**
+     * Sets date active.
+     *
+     * @param dateActive the date active
+     */
     public void setDateActive(LocalDateTime dateActive) {
         this.dateActive = dateActive;
     }
 
+    /**
+     * Gets first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Sets first name.
+     *
+     * @param firstName the first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Gets last name.
+     *
+     * @return the last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Sets last name.
+     *
+     * @param lastName the last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Gets organization.
+     *
+     * @return the organization
+     */
     public String getOrganization() {
         return organization;
     }
 
+    /**
+     * Sets organization.
+     *
+     * @param organization the organization
+     */
     public void setOrganization(String organization) {
         this.organization = organization;
     }
