@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lunchcrunch.controller.AppointmentApi;
+import com.lunchcrunch.controller.TopicApi;
 import com.lunchcrunch.controller.UserApi;
 import com.lunchcrunch.entity.Appointment;
 import com.lunchcrunch.entity.Location;
@@ -156,7 +157,16 @@ public class RestService {
     @Path("/topics")
     public Response getAllTopics() {
 
-        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
+        TopicApi currentTopicApi = new TopicApi();
+
+        String jsonString        = currentTopicApi.getAllTopics();
+
+        if (jsonString.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+        } else {
+            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+        }
+
     }
 
     /**
