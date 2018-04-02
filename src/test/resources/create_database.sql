@@ -1,6 +1,6 @@
-drop database lunchcrunch_test_database;
-create database lunchcrunch_test_database;
-use lunchcrunch_test_database;
+drop database lunchcrunch_main_database;
+create database lunchcrunch_main_database;
+use lunchcrunch_main_database;
 
 
 CREATE TABLE user

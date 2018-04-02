@@ -27,36 +27,105 @@ public class Appointment implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id",
             foreignKey = @ForeignKey(name = "appointment_user_id_fk"))
-
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "location_id",
             foreignKey = @ForeignKey(name = "appointment_location_id_fk"))
-
     private Location location;
 
     @ManyToOne
     @JoinColumn(name = "topic_id",
             foreignKey = @ForeignKey(name = "appointment_topic_id_fk"))
-
     private Topic topic;
 
     @Column(name = "date_time")
     private LocalDateTime dateTime;
 
+
+    /**
+     * Instantiates a new Appointment.
+     */
+    public Appointment() {
+    }
+
+
+    /**
+     * Instantiates a new Appointment.
+     *
+     * @param user     the user
+     * @param location the location
+     * @param topic    the topic
+     * @param dateTime the date time
+     */
+    public Appointment(User user, Location location, Topic topic, LocalDateTime dateTime) {
+        this.user = user;
+        this.location = location;
+        this.topic = topic;
+        this.dateTime = dateTime;
+    }
+
+    /**
+     * Gets id.
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+//    /**
+//     * Gets user id.
+//     * @return the user id
+//     */
+//    public int getUserId() {
+//        return userId;
+//    }
+//
+//    /**
+//     * Sets user id.
+//     * @param userId the user id
+//     */
+//    public void setUserId(int userId) {
+//        this.userId = userId;
+//    }
+//
+//
+//    public int getLocationId() {
+//        return locationId;
+//    }
+//
+//    public void setLocationId(int locationId) {
+//        this.locationId = locationId;
+//    }
+//
+//    public int getTopicId() {
+//        return topicId;
+//    }
+//
+//    public void setTopicId(int topicId) {
+//        this.topicId = topicId;
+//    }
+
+
+    /**
+     * Gets date time.
+     * @return the date time
+     */
     public LocalDateTime getDateTime() {
         return dateTime;
     }
 
+    /**
+     * Sets date time.
+     */
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
