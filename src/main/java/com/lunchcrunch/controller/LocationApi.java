@@ -52,15 +52,6 @@ public class LocationApi {
                 jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + ",";
             }
         }
-        validApiKey();
-        //return Response.status(200).entity(output).build();
-        return Response.ok(jasonOutput, MediaType.APPLICATION_JSON).build();
-    }
-    public Response validApiKey() {
-        String apiKey = "";
-        UserApi userApi = new UserApi();
-        Boolean jasonOutput = Boolean.FALSE;
-        userApi.validApiKey(apiKey);
         //return Response.status(200).entity(output).build();
         return Response.ok(jasonOutput, MediaType.APPLICATION_JSON).build();
     }
