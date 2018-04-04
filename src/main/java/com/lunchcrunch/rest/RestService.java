@@ -46,14 +46,14 @@ public class RestService {
 
     @GET
     @Path("/users")
-    public Response getAllUsers(@QueryParam("apiKey") String apiKey) {
+    public Response getUser(@QueryParam("apiKey") String apiKey) {
 
         if (apiKey == null || apiKey.isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST).entity(BAD_REQUEST_MSG).build();
         }
         userApi = new UserApi();
 
-        String jsonString  = userApi.getAllUsers(apiKey);
+        String jsonString  = userApi.getSpecificUser(apiKey);
 
         if (jsonString.isEmpty() || jsonString.equals(INVALID_KEY_MSG)) {
             return Response.status(Response.Status.NOT_FOUND).entity(NOTHING_FOUND_MSG).build();
@@ -68,7 +68,7 @@ public class RestService {
      *
      * @return the response
      */
-    @PUT
+    @POST
     @Path("/users")
     public Response createUser(@QueryParam("firstname") String firstName,
                                @QueryParam("lastname") String lastName,

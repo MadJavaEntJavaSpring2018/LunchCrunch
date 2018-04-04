@@ -79,6 +79,28 @@ public class UserApi {
         }
     }
 
+    /**
+     * Get specific user.
+     *
+     * @param apiKey the api key
+     * @return all users in json format
+     */
+    public String getSpecificUser(String apiKey) {
+
+        if (!validApiKey(apiKey)) {
+            return INVALID_API_KEY;
+        }
+
+
+        List<User> users = userDao.getByPropertyEqual("apiKey", apiKey);
+
+        if (users.size() > 0) {
+            return parseUserIntoJson(users);
+        } else {
+            return NOTHING_FOUND;
+        }
+    }
+
 
     /**
      * The getUserId method returns the id of the user for the API key passed
