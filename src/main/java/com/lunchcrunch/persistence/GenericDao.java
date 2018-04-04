@@ -100,7 +100,6 @@ public class GenericDao<T> {
         session.delete(entity);
         transaction.commit();
         session.close();
-
     }
 
     /**

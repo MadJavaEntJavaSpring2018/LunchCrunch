@@ -11,7 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 /**
- * A class to represent a user.
+ * A class to represent an Appointment.
  *
  * @author mchoinoski
  */
@@ -42,13 +42,11 @@ public class Appointment implements Serializable {
     @Column(name = "date_time")
     private LocalDateTime dateTime;
 
-
     /**
      * Instantiates a new Appointment.
      */
     public Appointment() {
     }
-
 
     /**
      * Instantiates a new Appointment.
@@ -80,40 +78,6 @@ public class Appointment implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-
-//    /**
-//     * Gets user id.
-//     * @return the user id
-//     */
-//    public int getUserId() {
-//        return userId;
-//    }
-//
-//    /**
-//     * Sets user id.
-//     * @param userId the user id
-//     */
-//    public void setUserId(int userId) {
-//        this.userId = userId;
-//    }
-//
-//
-//    public int getLocationId() {
-//        return locationId;
-//    }
-//
-//    public void setLocationId(int locationId) {
-//        this.locationId = locationId;
-//    }
-//
-//    public int getTopicId() {
-//        return topicId;
-//    }
-//
-//    public void setTopicId(int topicId) {
-//        this.topicId = topicId;
-//    }
-
 
     /**
      * Gets date time.

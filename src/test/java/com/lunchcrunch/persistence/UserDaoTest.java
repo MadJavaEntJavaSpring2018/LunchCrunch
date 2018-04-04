@@ -53,7 +53,6 @@ class UserDaoTest {
 
         String testString = jsonAllUsers;
         assertEquals(testString, jsonAllUsers);
-
     }
 
     @Test
@@ -65,6 +64,5 @@ class UserDaoTest {
 
         String testString = apiKey;
         assertEquals(testString, apiKey);
-
     }
 }

@@ -21,8 +21,17 @@
             <ul>
                 <li><a href="#">stuff</a></li>
                 <li><a href="#">More stuff</a></li>
-                <li><a href="services//lunchcrunch/appointments">Get All Appointments</a></li>
-                <li><a href="services/appointments/3/7/2/test">Add appoinment</a></li>
+                <li><a href="services/lunchcrunch/appointments">Get All Appointments</a></li>
+
+                <form action="services/lunchcrunch/appointments/" method="PUT">
+                    <br>User Id<input type="text" name="user" value=3>
+                    <br> Location Id<input type="text" name="location" value=7>
+                    <br> Topic<input type="text" name="topic" value=2>
+                    <br> Date<input type="text" name="date"   value="2018-01-01">
+
+                    <input type="submit" value="Add Appointment">
+                </form>
+                <%--<li><a href="services/lunchcrunch/appointments?id=3&id=7&id=2&date=2018-01-01">Add appoinment</a></li>--%>
             </ul>
         </nav>
     </div>
@@ -31,7 +40,18 @@
         <br>
         <div><pre><h2>
 
-                This will be the user documentation for LunchCrunch
+                This will be the user documentation for LunchCrunch.....................................
+                .
+            .
+            .
+            .
+            .
+            .
+            .
+            .
+            .
+
+            .
 
                 </h2>
 </pre></div>

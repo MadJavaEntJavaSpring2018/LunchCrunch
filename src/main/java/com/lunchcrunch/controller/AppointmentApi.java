@@ -95,7 +95,6 @@ public class AppointmentApi {
         if (appointments.size() == 0) {
             return "";
         }
-
         try {
             for (Appointment index : appointments)  {
                 count = count + 1;
@@ -105,8 +104,6 @@ public class AppointmentApi {
                     jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + ",";
                 }
             }
-
-
         } catch (JsonGenerationException e) {
             logger.error(e);
         } catch (JsonMappingException e) {

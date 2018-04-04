@@ -100,26 +100,26 @@ public class RestService {
         }
     }
 
-//    /**
-//     * Create appointment response.
-//     *
-//     * @return the response
-//     */
-//    @PUT
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("/appointments/{userId}{locationId}{topicId}{date}")
-//    public Response createAppointment(@PathParam("userId") int userId,
-//                                      @PathParam("locationId") int locationId,
-//                                      @PathParam("topicId") int topicId,
-//                                      @PathParam("date") String date) {
-//
-//        logger.info("WHAT THE HECk: {} {} {} {} " + userId + locationId );
-//        AppointmentApi appointApi = new AppointmentApi();
-//
-//        String response = appointApi.addAppointment(userId,locationId,topicId,LocalDateTime.parse(date));
-//
-//        return Response.ok(response, MediaType.TEXT_PLAIN).build();
-//    }
+    /**
+     * Create appointment response.
+     *
+     * @return the response
+     */
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/appointments{user}{location}{topic}{date}")
+    public Response createAppointment(@PathParam("user") int userId,
+                                      @PathParam("location") int locationId,
+                                      @PathParam("topic") int topicId,
+                                      @PathParam("date") String date) {
+
+        logger.info("WHAT THE HECk: {} {} {} {} " + userId + locationId );
+        AppointmentApi appointApi = new AppointmentApi();
+
+        String response = appointApi.addAppointment(userId,locationId,topicId,LocalDateTime.parse(date));
+
+        return Response.ok(response, MediaType.TEXT_PLAIN).build();
+    }
 
     /**
      * Gets all locations.
