@@ -32,7 +32,10 @@
                     <input type="submit" value="Add Appointment">
                 </form>
                 <%--<li><a href="services/lunchcrunch/appointments?id=3&id=7&id=2&date=2018-01-01">Add appoinment</a></li>--%>
-                <form action=""
+                <form action="services/lunchcrunch/users" method="GET">
+                    API Key <input type="text" name="apiKey" value="0998877543">
+                    <input type="submit" value="Find User">
+                </form>
             </ul>
         </nav>
     </div>
