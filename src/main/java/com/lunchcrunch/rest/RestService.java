@@ -116,20 +116,20 @@ public class RestService {
      *
      * @return the response
      */
-    @PUT
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/appointments{user}{location}{topic}{date}")
-    public Response createAppointment(@PathParam("user") int userId,
-                                      @PathParam("location") int locationId,
-                                      @PathParam("topic") int topicId,
-                                      @PathParam("date") String date) {
+    @Path("/appointments/get/{userId}")
+    public Response createAppointment(@PathParam("userId") int userId,
+                                      @QueryParam("name") String firstName) {
 
-        logger.info("WHAT THE HECk: {} {} {} {} " + userId + locationId );
+        logger.info("I passed the user id with @PathParam   : " + userId);
+        logger.info("I passed the fist name with @QueryParam: " + firstName);
+        //logger.info("WHAT THE HECk: {} {} {} {} " + userId + locationId );
         AppointmentApi appointApi = new AppointmentApi();
 
-        String response = appointApi.addAppointment(userId,locationId,topicId,LocalDateTime.parse(date));
+        //String response = appointApi.addAppointment(userId,locationId,topicId,LocalDateTime.parse(date));
 
-        return Response.ok(response, MediaType.TEXT_PLAIN).build();
+        return Response.ok("ok", MediaType.TEXT_PLAIN).build();
     }
 
     /**

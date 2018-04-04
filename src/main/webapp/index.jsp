@@ -23,11 +23,11 @@
                 <li><a href="#">More stuff</a></li>
                 <li><a href="services/lunchcrunch/appointments">Get All Appointments</a></li>
 
-                <form action="services/lunchcrunch/appointments/" method="PUT">
-                    <br>User Id<input type="text" name="user" value=3>
-                    <br> Location Id<input type="text" name="location" value=7>
-                    <br> Topic<input type="text" name="topic" value=2>
-                    <br> Date<input type="text" name="date"   value="2018-01-01">
+                <form action="services/lunchcrunch/appointments/get/99" method="GET">
+                    <%--<br>User Id<input type="text" name="user" value=3>--%>
+                    <%--<br> Location Id<input type="text" name="location" value=7>--%>
+                    <%--<br> Topic<input type="text" name="topic" value=2>--%>
+                    <br> Date<input type="text" name="name"   value="Elise">
 
                     <input type="submit" value="Add Appointment">
                 </form>
