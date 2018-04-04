@@ -29,6 +29,10 @@ import java.util.List;
 @Path("/lunchcrunch")
 public class RestService {
 
+    private static final String INVALID_KEY_MSG = "Invalid Key";
+    private static final String NOTHING_FOUND_MSG = "Nothing Found";
+    private static final String BAD_REQUEST_MSG = "Bad Request";
+
     UserApi userApi;
 
 
@@ -39,20 +43,25 @@ public class RestService {
      *
      * @return the all users
      */
+
     @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/users/{apiKey}")
-    public Response getAllUsers(@PathParam("apiKey") String apiKey) {
+    @Path("/users")
+    public Response getAllUsers(@QueryParam("apiKey") String apiKey) {
+
+        if (apiKey == null || apiKey.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(BAD_REQUEST_MSG).build();
+        }
         userApi = new UserApi();
 
         String jsonString  = userApi.getAllUsers(apiKey);
 
-        if (jsonString.isEmpty()) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+        if (jsonString.isEmpty() || jsonString.equals(INVALID_KEY_MSG)) {
+            return Response.status(Response.Status.NOT_FOUND).entity(NOTHING_FOUND_MSG).build();
         } else {
             return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
         }
     }
+
 
     /**
      * Create user response.
@@ -60,15 +69,17 @@ public class RestService {
      * @return the response
      */
     @PUT
-//    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/users/{param}")
-    public Response createUser(@PathParam("param") String param) {
-        userApi = new UserApi();
+    @Path("/users")
+    public Response createUser(@QueryParam("firstname") String firstName,
+                               @QueryParam("lastname") String lastName,
+                               @QueryParam("organization") String organization) {
+        if (firstName == null || firstName.isEmpty() ||
+            lastName == null || lastName.isEmpty() ||
+            organization == null || organization.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(BAD_REQUEST_MSG).build();
+        }
 
-        //TODO remove test variables
-        String lastName = "Smith";
-        String firstName = "Bonny";
-        String organization = "Nelnet";
+        userApi = new UserApi();
 
         String apiKey = userApi.addUser(lastName, firstName, organization);
 

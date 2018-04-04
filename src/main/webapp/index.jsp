@@ -32,6 +32,7 @@
                     <input type="submit" value="Add Appointment">
                 </form>
                 <%--<li><a href="services/lunchcrunch/appointments?id=3&id=7&id=2&date=2018-01-01">Add appoinment</a></li>--%>
+                <form action=""
             </ul>
         </nav>
     </div>
