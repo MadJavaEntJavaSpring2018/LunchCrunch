@@ -32,17 +32,6 @@
                     <input type="submit" value="Add Appointment">
                 </form>
                 <%--<li><a href="services/lunchcrunch/appointments?id=3&id=7&id=2&date=2018-01-01">Add appoinment</a></li>--%>
-                <form action="services/lunchcrunch/users" method="GET">
-                    API Key <input type="text" name="apiKey" value="0998877543">
-                    <input type="submit" value="Find User">
-                </form>
-                <br/>
-                <form action="services/lunchcrunch/users" method="POST">
-                    Last Name <input type="text" name="lastname">
-                    First Name <input type="text" name="firstname">
-                    Organization <input type="text" name="organization">
-                    <input type="submit" value="Add User">
-                </form>
             </ul>
         </nav>
     </div>
@@ -51,21 +40,21 @@
         <br>
         <div><pre><h2>
 
-                This will be the user documentation for LunchCrunch.....................................
-                .
-            .
-            .
-            .
-            .
-            .
-            .
-            .
-            .
-
-            .
-
+                This will be the user documentation for LunchCrunch......
                 </h2>
-</pre></div>
+            </pre>
+            <form action="services/lunchcrunch/users" method="GET">
+                API Key <input type="text" name="apiKey" value="0998877543">
+                <input type="submit" value="Find User">
+            </form>
+            <br/>
+            <form action="services/lunchcrunch/users" method="POST">
+                Last Name <input type="text" name="lastname">
+                First Name <input type="text" name="firstname">
+                Organization <input type="text" name="organization">
+                <input type="submit" value="Add User">
+            </form>
+        </div>
         <br>
 
     </div>

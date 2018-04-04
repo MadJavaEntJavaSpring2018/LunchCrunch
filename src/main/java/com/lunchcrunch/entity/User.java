@@ -25,7 +25,6 @@ public class User {
     @GenericGenerator(name = "native", strategy = "native")
     private int id;
 
-    @JsonIgnore
     @Column(name = "api_key")
     private String apiKey;
 
