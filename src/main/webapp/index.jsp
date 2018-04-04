@@ -43,14 +43,15 @@
                 This will be the user documentation for LunchCrunch......
                 </h2>
             </pre>
+
             <form action="services/lunchcrunch/users" method="GET">
                 API Key <input type="text" name="apiKey" value="0998877543">
                 <input type="submit" value="Find User">
             </form>
             <br/>
             <form action="services/lunchcrunch/users" method="POST">
-                Last Name <input type="text" name="lastname">
                 First Name <input type="text" name="firstname">
+                Last Name <input type="text" name="lastname">
                 Organization <input type="text" name="organization">
                 <input type="submit" value="Add User">
             </form>
