@@ -32,6 +32,17 @@ class UserDaoTest {
         database.runSQL("cleandb.sql");
     }
 
+    @Test
+    void testGetUserId() {
+
+        UserApi userApi = new UserApi();
+        int userId = userApi.getUserId("1122334455");
+
+        int testUserId = userId;
+        assertEquals(testUserId, userId);
+
+    }
+
     /**
      * Verify the success of getting by id
      */

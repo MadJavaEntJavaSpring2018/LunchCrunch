@@ -53,15 +53,6 @@ public class UserApi {
 
         User user = new User(apiKey, TRUE, LocalDateTime.now(), firstName, lastName, organisation);
 
-        logger.debug("id:" + user.getId());
-        logger.debug("api key:" + user.getApiKey());
-        logger.debug("active:" + user.isActive());
-        logger.debug("date active:" + user.getDateActive());
-        logger.debug("lastname:" + user.getLastName());
-        logger.debug("firstname:" + user.getFirstName());
-        logger.debug("organization:" + user.getOrganization());
-
-
         int id = userDao.insert(user);
 
         return apiKey;
@@ -85,6 +76,22 @@ public class UserApi {
             return parseUserIntoJson(users);
         } else {
             return NOTHING_FOUND;
+        }
+    }
+
+
+    /**
+     * The getUserId method returns the id of the user for the API key passed
+     * to the method.
+     * @return id of the user. If user is not found, a value of -1 will be returned.
+     */
+    public int getUserId(String apiKey) {
+        List<User> users = userDao.getByPropertyEqual("apiKey", apiKey);
+
+        if (users.size() > 0) {
+            return users.get(0).getId();
+        } else {
+            return -1;
         }
     }
 
