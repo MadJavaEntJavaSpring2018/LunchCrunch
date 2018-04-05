@@ -59,6 +59,27 @@ public class UserApi {
     }
 
     /**
+     * Update user
+     *
+     * @param apiKey       the API key
+     * @param lastName     the last name
+     * @param firstName    the first name
+     * @param organisation the organisation
+     */
+    public void updateUser(String apiKey, String firstName, String lastName, String organisation) {
+
+        int userId = getUserId(apiKey);
+
+        User user = (User)userDao.getById(userId);
+
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setOrganization(organisation);
+
+        userDao.saveOrUpdate(user);
+    }
+
+    /**
      * Get all users.
      *
      * @param apiKey the api key

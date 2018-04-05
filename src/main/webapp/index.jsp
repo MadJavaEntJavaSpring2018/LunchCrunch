@@ -55,6 +55,19 @@
                 Organization <input type="text" name="organization">
                 <input type="submit" value="Add User">
             </form>
+            <br/>
+            <form action="services/lunchcrunch/users" method="POST">
+                API Key <input type="text" name="apiKey">
+                First Name <input type="text" name="firstname">
+                Last Name <input type="text" name="lastname">
+                Organization <input type="text" name="organization">
+                <input type="submit" value="Update User">
+            </form>
+            <br/>
+            <form action="services/lunchcrunch/users" method="POST">
+                API Key <input type="text" name="apiKey">
+                <input type="submit" value="Delete User">
+            </form>
         </div>
         <br>
 

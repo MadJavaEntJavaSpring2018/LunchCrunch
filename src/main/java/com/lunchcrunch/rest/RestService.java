@@ -32,6 +32,7 @@ public class RestService {
     private static final String INVALID_KEY_MSG = "Invalid Key";
     private static final String NOTHING_FOUND_MSG = "Nothing Found";
     private static final String BAD_REQUEST_MSG = "Bad Request";
+    private static final String SERVICE_UNAVAILABLE_MSG = "Service Unavailable";
 
     UserApi userApi;
 
@@ -70,23 +71,36 @@ public class RestService {
      */
     @POST
     @Path("/users")
-    public Response createUser(@QueryParam("firstname") String firstName,
-                               @QueryParam("lastname") String lastName,
-                               @QueryParam("organization") String organization) {
+    public Response createUser(@FormParam("apiKey") String apiKey,
+                               @FormParam("firstname") String firstName,
+                               @FormParam("lastname") String lastName,
+                               @FormParam("organization") String organization) {
+
+        userApi = new UserApi();
+
+        // These parameters are required
         if (firstName == null || firstName.isEmpty() ||
             lastName == null || lastName.isEmpty() ||
             organization == null || organization.isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST).entity(BAD_REQUEST_MSG).build();
         }
 
-        userApi = new UserApi();
+        // If the apiKey is not passed as a parameter, then add the user
+        // else update the user
+        if (apiKey == null || apiKey.isEmpty()) {
+            apiKey = userApi.addUser(lastName, firstName, organization);
+        } else {
+            userApi.updateUser(apiKey, firstName, lastName, organization);
+        }
 
-        String apiKey = userApi.addUser(lastName, firstName, organization);
+        // Now go get either the new user just added, or the user for the apiKey passed
+        // as a parameter so we can send the user details back as json
+        String jsonString  = userApi.getSpecificUser(apiKey);
 
         if (apiKey.isEmpty()) {
-            return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity(SERVICE_UNAVAILABLE_MSG).build();
         } else {
-            return Response.ok(userApi, MediaType.TEXT_PLAIN).build();
+            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
         }
     }
 
