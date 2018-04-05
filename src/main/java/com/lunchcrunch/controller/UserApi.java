@@ -8,6 +8,8 @@ import com.lunchcrunch.persistence.GenericDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,7 +26,11 @@ public class UserApi {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     private static final String INVALID_API_KEY = "Invalid Key";
+    private static final String INVALID_KEY_MSG = "Invalid Key";
+    private static final String NOTHING_FOUND_MSG = "Nothing Found";
     private static final String NOTHING_FOUND = "";
+    private static final String BAD_REQUEST_MSG = "Bad Request";
+    private static final String SERVICE_UNAVAILABLE_MSG = "Service Unavailable";
 
 
     /**
@@ -40,6 +46,140 @@ public class UserApi {
     }
 
     /**
+     * This processUser method returns a specific user in json format.
+     *
+     * @param apiKey
+     * @return
+     */
+    public Response processUser(String apiKey) {
+
+        if (apiKey == null || apiKey.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(BAD_REQUEST_MSG).build();
+        }
+
+        String jsonString = getSpecificUser(apiKey);
+
+        if (jsonString.isEmpty() || jsonString.equals(INVALID_KEY_MSG)) {
+            return Response.status(Response.Status.NOT_FOUND).entity(NOTHING_FOUND_MSG).build();
+        } else {
+            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+        }
+    }
+
+
+    /**
+     * This processUser method can add, update and delete a user.
+     *
+     * @param apiKey
+     * @param firstName
+     * @param lastName
+     * @param organization
+     * @return Response
+     */
+    public Response processUser(String apiKey, String firstName, String lastName, String organization) {
+
+
+        // No apiKey passed, so try to add the user
+        if ((apiKey==null || apiKey.isEmpty())) {
+            return newUser(firstName, lastName, organization);
+        }
+
+        // An API key was passed and nothing else, delete the user
+        if ((firstName == null || firstName.isEmpty()) &&
+                (lastName == null || lastName.isEmpty()) &&
+                (organization == null || organization.isEmpty())) {
+            return deleteUser(apiKey);
+        }
+
+        // If the two conditions above are both false, it means we need to try and update
+        // the user.
+        return updateExistingUser(apiKey, firstName, lastName, organization);
+    }
+
+    /**
+     * The addUser method will add a user to the user table and return that user as a json string.
+     *
+     * @param firstName
+     * @param lastName
+     * @param organization
+     * @return
+     */
+    private Response newUser(String firstName, String lastName, String organization) {
+
+        // All the parameters must be passed for a successful add
+        if ((firstName == null || firstName.isEmpty()) ||
+                (lastName == null || lastName.isEmpty()) ||
+                (organization == null || organization.isEmpty())) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(BAD_REQUEST_MSG).build();
+        }
+
+        // Add the user and get the API key back
+        String apiKey = addUser(firstName, lastName, organization);
+
+        return userAsJson(apiKey);
+    }
+
+    /**
+     * The updateUser method will update a user on the user table and return that updated user as a json string
+     *
+     * @param apiKey
+     * @param firstName
+     * @param lastName
+     * @param organization
+     * @return
+     */
+    private Response updateExistingUser(String apiKey, String firstName, String lastName, String organization) {
+        if ((firstName == null || firstName.isEmpty()) ||
+                (lastName == null || lastName.isEmpty()) ||
+                (organization == null || organization.isEmpty())) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(BAD_REQUEST_MSG).build();
+        }
+
+        updateUser(apiKey, firstName, lastName, organization);
+
+        return userAsJson(apiKey);
+    }
+
+    /**
+     * The deleteUser method will delete a user from the user table
+     *
+     * @param apiKey
+     * @return
+     */
+    private Response deleteUser(String apiKey) {
+
+        int userId = getUserId(apiKey);
+
+        if (userId == -1) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(BAD_REQUEST_MSG).build();
+        }
+
+        User user = (User)userDao.getById(userId);
+
+        userDao.delete(user);
+
+        return Response.status(Response.Status.OK).entity("Deleted").build();
+    }
+
+    /**
+     * The returnUserAsJson method will go get the user details for the API Key passed and return
+     * the user details in json format.
+     * @param apiKey
+     * @return
+     */
+    private Response userAsJson(String apiKey) {
+
+        String jsonString  = getSpecificUser(apiKey);
+
+        if (jsonString.isEmpty()) {
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity(SERVICE_UNAVAILABLE_MSG).build();
+        } else {
+            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+        }
+    }
+
+
+    /**
      * Add user
      *
      * @param lastName     the last name
@@ -47,7 +187,7 @@ public class UserApi {
      * @param organisation the organisation
      * @return the string
      */
-    public String addUser(String lastName, String firstName, String organisation) {
+    public String addUser(String firstName, String lastName, String organisation) {
 
         String apiKey = generateApiKey();
 

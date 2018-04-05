@@ -23,86 +23,47 @@ import java.util.List;
 
 /**
  * The RestService class contains one method each for each of the API available functions:
- *
- *
  */
 @Path("/lunchcrunch")
 public class RestService {
-
-    private static final String INVALID_KEY_MSG = "Invalid Key";
-    private static final String NOTHING_FOUND_MSG = "Nothing Found";
-    private static final String BAD_REQUEST_MSG = "Bad Request";
-    private static final String SERVICE_UNAVAILABLE_MSG = "Service Unavailable";
-
-    UserApi userApi;
 
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     /**
-     * Gets all users.
+     * Gets a user and returns it as json.
      *
+     * @param apiKey the api key
      * @return the all users
      */
-
     @GET
     @Path("/users")
     public Response getUser(@QueryParam("apiKey") String apiKey) {
-
-        if (apiKey == null || apiKey.isEmpty()) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(BAD_REQUEST_MSG).build();
-        }
-        userApi = new UserApi();
-
-        String jsonString  = userApi.getSpecificUser(apiKey);
-
-        if (jsonString.isEmpty() || jsonString.equals(INVALID_KEY_MSG)) {
-            return Response.status(Response.Status.NOT_FOUND).entity(NOTHING_FOUND_MSG).build();
-        } else {
-            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
-        }
+        UserApi userApi = new UserApi();
+        return userApi.processUser(apiKey);
     }
 
 
     /**
-     * Create user response.
+     * Create, update or delete the user
      *
+     * @param apiKey       the api key
+     * @param firstName    the first name
+     * @param lastName     the last name
+     * @param organization the organization
      * @return the response
      */
     @POST
     @Path("/users")
-    public Response createUser(@FormParam("apiKey") String apiKey,
+    public Response addUpdateDeleteUser(@FormParam("apiKey") String apiKey,
                                @FormParam("firstname") String firstName,
                                @FormParam("lastname") String lastName,
                                @FormParam("organization") String organization) {
-
-        userApi = new UserApi();
-
-        // These parameters are required
-        if (firstName == null || firstName.isEmpty() ||
-            lastName == null || lastName.isEmpty() ||
-            organization == null || organization.isEmpty()) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(BAD_REQUEST_MSG).build();
-        }
-
-        // If the apiKey is not passed as a parameter, then add the user
-        // else update the user
-        if (apiKey == null || apiKey.isEmpty()) {
-            apiKey = userApi.addUser(lastName, firstName, organization);
-        } else {
-            userApi.updateUser(apiKey, firstName, lastName, organization);
-        }
-
-        // Now go get either the new user just added, or the user for the apiKey passed
-        // as a parameter so we can send the user details back as json
-        String jsonString  = userApi.getSpecificUser(apiKey);
-
-        if (apiKey.isEmpty()) {
-            return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity(SERVICE_UNAVAILABLE_MSG).build();
-        } else {
-            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
-        }
+        UserApi userApi = new UserApi();
+        return userApi.processUser(apiKey, firstName, lastName, organization);
     }
+
+
 
     /**
      * Gets all appointments.
@@ -128,6 +89,8 @@ public class RestService {
     /**
      * Create appointment response.
      *
+     * @param userId    the user id
+     * @param firstName the first name
      * @return the response
      */
     @GET
