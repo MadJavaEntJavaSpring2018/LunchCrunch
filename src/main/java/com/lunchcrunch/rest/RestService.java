@@ -23,61 +23,47 @@ import java.util.List;
 
 /**
  * The RestService class contains one method each for each of the API available functions:
- *
- *
  */
 @Path("/lunchcrunch")
 public class RestService {
-
-    UserApi userApi;
 
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     /**
-     * Gets all users.
+     * Gets a user and returns it as json.
      *
+     * @param apiKey the api key
      * @return the all users
      */
     @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/users/{apiKey}")
-    public Response getAllUsers(@PathParam("apiKey") String apiKey) {
-        userApi = new UserApi();
-
-        String jsonString  = userApi.getAllUsers(apiKey);
-
-        if (jsonString.isEmpty()) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
-        } else {
-            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
-        }
+    @Path("/users")
+    public Response getUser(@QueryParam("apiKey") String apiKey) {
+        UserApi userApi = new UserApi();
+        return userApi.processUser(apiKey);
     }
+
 
     /**
-     * Create user response.
+     * Create, update or delete the user
      *
+     * @param apiKey       the api key
+     * @param firstName    the first name
+     * @param lastName     the last name
+     * @param organization the organization
      * @return the response
      */
-    @PUT
-//    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/users/{param}")
-    public Response createUser(@PathParam("param") String param) {
-        userApi = new UserApi();
-
-        //TODO remove test variables
-        String lastName = "Smith";
-        String firstName = "Bonny";
-        String organization = "Nelnet";
-
-        String apiKey = userApi.addUser(lastName, firstName, organization);
-
-        if (apiKey.isEmpty()) {
-            return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
-        } else {
-            return Response.ok(userApi, MediaType.TEXT_PLAIN).build();
-        }
+    @POST
+    @Path("/users")
+    public Response addUpdateDeleteUser(@FormParam("apiKey") String apiKey,
+                                        @FormParam("firstname") String firstName,
+                                        @FormParam("lastname") String lastName,
+                                        @FormParam("organization") String organization) {
+        UserApi userApi = new UserApi();
+        return userApi.processUser(apiKey, firstName, lastName, organization);
     }
+
+
 
     /**
      * Gets all appointments.
@@ -103,6 +89,8 @@ public class RestService {
     /**
      * Create appointment response.
      *
+     * @param userId    the user id
+     * @param firstName the first name
      * @return the response
      */
     @GET
