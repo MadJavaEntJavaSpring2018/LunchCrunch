@@ -1,7 +1,6 @@
 package com.lunchcrunch.persistence;
 
 import com.lunchcrunch.entity.Topic;
-import com.lunchcrunch.entity.User;
 import com.lunchcrunch.test.util.Database;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
