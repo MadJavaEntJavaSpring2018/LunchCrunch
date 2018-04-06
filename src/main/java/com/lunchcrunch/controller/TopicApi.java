@@ -20,7 +20,9 @@ public class TopicApi {
 
     public String getAllTopics() {
 
-        GenericDao genericDao = new GenericDao(Topic.class);
+        User =
+
+        GenericDao genericDao =  new GenericDao(Topic.class);
         List<Topic> topics    = (List<Topic>)genericDao.getAll();
 
         ObjectMapper mapper         = new ObjectMapper();
@@ -47,17 +49,20 @@ public class TopicApi {
 
     }
 
-    public String addTopic(String description) {
 
-        GenericDao topicDao     = new GenericDao(Topic.class);
 
-        Topic newTopic = new Topic(description);
+    //public String addTopic(String description) {
 
-        topicDao.insert(newTopic);
+    //    GenericDao topicDao     = new GenericDao(Topic.class);
 
-        return "ok";
+    //    Topic newTopic = new Topic(description);
 
-    }
+    //    topicDao.insert(newTopic);
+
+    //    return "ok";
+
+    //}
+
 
 }
 
