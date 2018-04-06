@@ -156,17 +156,5 @@ public class RestService {
 
     }
 
-    /**
-     * Create topic response.
-     *
-     * @return the response
-     */
-    @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/topics")
-    public Response createTopic() {
-
-        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
-    }
 
 }

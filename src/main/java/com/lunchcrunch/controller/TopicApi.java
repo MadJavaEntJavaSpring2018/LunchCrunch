@@ -8,32 +8,62 @@ import com.lunchcrunch.persistence.GenericDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import java.io.IOException;
 import java.util.List;
 
 public class TopicApi {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
+    private static final String INVALID_API_KEY = "Invalid Key";
+    private static final String NOTHING_FOUND = "";
+
+    GenericDao dao = new GenericDao(Topic.class);
 
     public String getAllTopics() {
 
-        GenericDao genericDao = new GenericDao(Topic.class);
-        List<Topic> topics    = (List<Topic>)genericDao.getAll();
+        UserApi userApi = new UserApi();
+        int id  =  userApi.getUserId("apiKey");
+        if (id == -1) {
+            return INVALID_API_KEY;
+        }
 
-        ObjectMapper mapper         = new ObjectMapper();
-        String       jasonOutput    = "[";
-        int          count          = 0;
+        List<Topic> topics = (List<Topic>) dao.getAll();
+
+        if (topics.size() > 0) {
+            return parseObjectIntoJson(topics);
+        } else {
+            return NOTHING_FOUND;
+        }
+
+    }
+
+    /**
+     * The parseIntoJson method takes the List of Topic objects and parses them into a json string
+     *
+     * @param topics
+     * @return
+     */
+    private String parseObjectIntoJson(List<Topic> topics) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = "";
+        int jsonObjCount = 0;
+
+        if (topics.size() == 0) {
+            return "";
+        }
+
         try {
-            for (Topic index : topics) {
-                count = count + 1;
-                if (count == topics.size()) {
-                    jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + "]";
-                } else {
-                    jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + ",";
+            for (Topic thisTopic : topics) {
+                jsonObjCount += 1;
+                jsonString += mapper.writeValueAsString(thisTopic);
+
+                if (jsonObjCount < topics.size()) {
+                    jsonString += ",";
                 }
+            }
+            if (topics.size() > 1) {
+                jsonString = "[" + jsonString + "]";
             }
         } catch (JsonGenerationException e) {
             logger.error(e);
@@ -43,21 +73,12 @@ public class TopicApi {
             logger.error(e);
         }
 
-        return jasonOutput;
+        return jsonString;
 
     }
 
-    public String addTopic(String description) {
 
-        GenericDao topicDao     = new GenericDao(Topic.class);
 
-        Topic newTopic = new Topic(description);
-
-        topicDao.insert(newTopic);
-
-        return "ok";
-
-    }
 
 }
 
