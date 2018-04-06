@@ -56,13 +56,12 @@ public class RestService {
     @POST
     @Path("/users")
     public Response addUpdateDeleteUser(@FormParam("apiKey") String apiKey,
-                               @FormParam("firstname") String firstName,
-                               @FormParam("lastname") String lastName,
-                               @FormParam("organization") String organization) {
+                                        @FormParam("firstname") String firstName,
+                                        @FormParam("lastname") String lastName,
+                                        @FormParam("organization") String organization) {
         UserApi userApi = new UserApi();
         return userApi.processUser(apiKey, firstName, lastName, organization);
     }
-
 
 
     /**
