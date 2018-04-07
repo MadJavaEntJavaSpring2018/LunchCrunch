@@ -77,7 +77,6 @@ public class UserApi {
      */
     public Response processUser(String apiKey, String firstName, String lastName, String organization) {
 
-
         // No apiKey passed, so try to add the user
         if ((apiKey==null || apiKey.isEmpty())) {
             return newUser(firstName, lastName, organization);

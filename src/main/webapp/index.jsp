@@ -12,7 +12,7 @@
 <div id="wrap">
     <header>
         <h1>LunchCrunch</h1>
-        <a href="#">New! coming soon</a>
+        <a href="index2.jsp">New! coming soon</a>
     </header>
 
     <div id="content">
@@ -92,6 +92,12 @@
             <b>GET Function: /appointments/topic?topic=value</b><br/>
                      <input type="submit" value="Find appointments by topic">
             Topic Id <input type="text" name="topic" value=2>
+        </form>
+        <br/>
+        <form action="services/lunchcrunch/appointments/appointment" method="GET">
+            <b>GET Function: /appointments/appointment?appointment=value</b><br/>
+                           <input type="submit" value="Find appointment by appointment ID">
+            Appointment Id <input type="text" name="appointment" value=13>
         </form>
         <br/>
         <form action="services/lunchcrunch/appointments" method="POST">

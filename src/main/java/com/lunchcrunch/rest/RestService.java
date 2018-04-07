@@ -130,6 +130,26 @@ public class RestService {
         }
     }
 
+    /**
+     * Gets all appointments for a specific topic and returns it as json.
+     *
+     * @param appointment the Appointment Id
+     * @return the appointments
+     */
+    @GET
+    @Path("/appointments/appointment")
+    public Response getAllAppointmentsByAppointment(@QueryParam("appointment") int appointment) {
+
+        AppointmentApi appointApi = new AppointmentApi();
+        String jsonString           = appointApi.getAllAppointmentsByAppointment(appointment);
+
+        if (jsonString.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+        } else {
+            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+        }
+    }
+
 
     /**
      * Add a new appointment
@@ -148,9 +168,19 @@ public class RestService {
                                          @FormParam("topicid")       int    topic,
                                          @FormParam("datetime")      String datetime) {
 
-        logger.info(apikey + " " + appointment + " " + location + " " + topic + " " + datetime);
-        
-        return Response.status(Response.Status.NOT_FOUND).entity("going to add").build();
+        UserApi userApi = new UserApi();
+        int id = userApi.getUserId(apikey);
+
+        AppointmentApi appointmentApi = new AppointmentApi();
+
+        String jsonString  =
+                appointmentApi.maintainAppointment(id, appointment, location, topic, datetime);
+
+        if (jsonString.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+        } else {
+            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+        }
     }
 
 
