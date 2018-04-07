@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lunchcrunch.controller.AppointmentApi;
+import com.lunchcrunch.controller.LocationApi;
 import com.lunchcrunch.controller.TopicApi;
 import com.lunchcrunch.controller.UserApi;
 import com.lunchcrunch.entity.Appointment;
@@ -191,22 +192,44 @@ public class RestService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/locations")
-    public Response getAllLocations() {
+    public Response getAllLocations(@QueryParam("apiKey") String apiKey) {
 
-        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
+        LocationApi locationApi = new LocationApi();
+
+        String jsonString        = locationApi.getAllLocations(apiKey);
+
+        if (jsonString.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+        } else {
+            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+        }
     }
 
     /**
-     * Createlocation response.
+     * Add a new location
      *
+     * @param apikey       the api key
+     * @param userId       the User Id
+     * @param description  the Description
      * @return the response
      */
-    @PUT
-    @Produces(MediaType.APPLICATION_JSON)
+    @POST
     @Path("/locations")
-    public Response createlocation() {
+    public Response addLocation(@FormParam("apikey")        String apikey,
+                                @FormParam("userId")        int userId,
+                                @FormParam("description")   String description) {
 
-        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Service Unavailable").build();
+        UserApi userApi = new UserApi();
+        int id = userApi.getUserId(apikey);
+
+        LocationApi locationApi = new LocationApi();
+        String jsonString        = locationApi.addLocation(id, userId, description);
+
+        if (jsonString.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+        } else {
+            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+        }
     }
 
     /**

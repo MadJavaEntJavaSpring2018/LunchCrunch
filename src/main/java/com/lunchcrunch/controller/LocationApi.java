@@ -1,22 +1,47 @@
 package com.lunchcrunch.controller;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lunchcrunch.entity.Location;
 import com.lunchcrunch.entity.User;
 import com.lunchcrunch.persistence.GenericDao;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.io.IOException;
 import java.util.List;
 
 public class LocationApi {
+
+    private final Logger logger = LogManager.getLogger(this.getClass());
+    private static final String INVALID_API_KEY = "Invalid Key";
+    private static final String NOTHING_FOUND = "";
+    private static final String NEW_LOCATION_ADD = "New Location added";
+
     GenericDao genericDao = new GenericDao(Location.class);
     /**
      * Instantiates a new Location api.
      */
     public LocationApi() {
+    }
+    /**
+     * Add a location.
+     *
+     * If the appointment Id was sent, then update otherwise insert
+     *
+     * @param id            The API key
+     * @param userId        The user id
+     * @param description   The description
+     *
+     * @return all locations in json format
+     */
+    public String addLocation(int id, int userId, String description) {
+
+        int newLocationId = 0;
+        String message = " ";
+            newLocationId = createLocation(userId, description);
+            message = (NEW_LOCATION_ADD + " " + "id = " + newLocationId);
+        return message;
     }
     /**
      * Add location
@@ -25,65 +50,68 @@ public class LocationApi {
      * @param description the description
      * @return the string
      */
-    public String addLocation(int userId, String description) {
+    public int createLocation(int userId, String description) {
 
         GenericDao userDao      = new GenericDao(User.class);
-        Location location       = new Location();
 
         User user               = (User) userDao.getById(userId);
-        description             = location.getDescription();
 
         Location newLocation = new Location(user, description);
-        genericDao.insert(newLocation);
-
-        return "ok";
+        return genericDao.insert(newLocation);
     }
     /**
-     * Delete location
+     * Get all locations for the organization.
      *
-     * @param userId      the user id
-     * @param description the description
-     * @return the string
+     * @param
+     * @return all locations in json format
      */
-    public String deleteLocation(int userId, String description) {
-
-        GenericDao userDao      = new GenericDao(User.class);
-        Location location       = new Location();
-
-        User user               = (User) userDao.getById(userId);
-        description             = location.getDescription();
-
-        Location deleteLocation = new Location(user, description);
-        genericDao.delete(deleteLocation);
-
-        return "ok";
-    }
-    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/users/{apiKey}")
-    public Response getAllLocations() throws Exception {
+    public String getAllLocations(String apiKey) {
 
         UserApi userApi = new UserApi();
-        int id  =  userApi.getUserId("apiKey");
+        int id  =  userApi.getUserId(apiKey);
         if (id == -1) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+            return INVALID_API_KEY;
         }
-        List<Location> locations = (List<Location>)genericDao.getAll();
 
-        ObjectMapper mapper         = new ObjectMapper();
-        String       jasonOutput    = "[";
-        int          count          = 0;
+        List<Location> locations = (List<Location>) genericDao.getAll();
 
-        for (Location index : locations)  {
-            count = count + 1;
-            if (count == locations.size()) {
-                jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + "]";
-            } else {
-                jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + ",";
+        if (locations.size() > 0) {
+            return parseObjectIntoJson(locations);
+        } else {
+            return NOTHING_FOUND;
+        }
+    }
+    /**
+     * The parseIntoJson method takes the List of Location objects and parses them into a json string
+     *
+     * @param locations
+     * @return
+     */
+    private String parseObjectIntoJson(List<Location> locations) {
+        ObjectMapper mapper = new ObjectMapper();
+        String jasonOutput = "[";
+        int count = 0;
+
+        if (locations.size() == 0) {
+            return "";
+        }
+        try {
+            for (Location index : locations)  {
+                count = count + 1;
+                if (count == locations.size()) {
+                    jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + "]";
+                } else {
+                    jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + ",";
+                }
             }
+        } catch (JsonGenerationException e) {
+            logger.error(e);
+        } catch (JsonMappingException e) {
+            logger.error(e);
+        } catch (IOException e) {
+            logger.error(e);
         }
-        //return Response.status(200).entity(output).build();
-        return Response.ok(jasonOutput, MediaType.APPLICATION_JSON).build();
+        return jasonOutput;
     }
 }
 
