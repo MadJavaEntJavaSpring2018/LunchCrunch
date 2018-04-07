@@ -44,7 +44,7 @@ public class TopicDaoTest {
             logger.info("topic" + index.toString());
             logger.info("test");
         }
-        assertEquals(8, topics.size());
+        assertEquals(4, topics.size());
     }
 
     /**
