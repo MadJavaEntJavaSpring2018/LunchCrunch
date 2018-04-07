@@ -19,10 +19,10 @@ public class TopicApi {
 
     GenericDao dao = new GenericDao(Topic.class);
 
-    public String getAllTopics() {
+    public String getAllTopics(String userKey) {
 
         UserApi userApi = new UserApi();
-        int id  =  userApi.getUserId("apiKey");
+        int id  =  userApi.getUserId(userKey);
         if (id == -1) {
             return INVALID_API_KEY;
         }
@@ -76,9 +76,6 @@ public class TopicApi {
         return jsonString;
 
     }
-
-
-
 
 }
 

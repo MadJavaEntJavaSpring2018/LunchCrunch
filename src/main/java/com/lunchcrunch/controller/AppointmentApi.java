@@ -89,7 +89,7 @@ public class AppointmentApi {
      */
     private String parseObjectIntoJson(List<Appointment> appointments) {
         ObjectMapper mapper = new ObjectMapper();
-        String jasonOutput = "";
+        String jasonOutput = "[";
         int count = 0;
 
         if (appointments.size() == 0) {

@@ -76,6 +76,13 @@
         </div>
         <br>
 
+        <br><br>
+        <h3>Get all Topics</h3>
+
+        <form action="services/lunchcrunch/topics/1234567890" method="GET">
+            <input type="submit" value="Get Topics">
+        </form>
+
     </div>
 
 
