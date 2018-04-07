@@ -121,6 +121,21 @@
             API Key <input type="text" name="apiKey" value="0998877543">
         </form>
 
+        <br>
+
+        <h3>LocationApi</h3>
+        <form action="services/lunchcrunch/locations" method="GET">
+            <b>TopicApi GET Function: /locations?apiKey=...</b><br/>
+            <input type="submit" value="Get Locations">
+            API Key <input type="text" name="apiKey" value="0998877543">
+        </form>
+        <form action="services/lunchcrunch/locations" method="POST">
+            <b>POST Function: /locations?apiKey=value&location=value&topic=value&datetime=value</b><br/>
+            <input type="submit" value="Add Location">
+            User id <input type="text" name="userId" value=4 required>
+            Description  <input type="text" name="description" value="Collaboration Area 3" required>
+        </form>
+
     </div>
 
 </div>
