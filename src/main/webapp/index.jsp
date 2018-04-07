@@ -124,8 +124,7 @@
         </form>
         <br>
 
-        <h3>Get all Topics</h3>
-
+        <h3>TopicApi</h3>
         <form action="services/lunchcrunch/topics" method="GET">
             <b>TopicApi GET Function: /topics?apiKey=...</b><br/>
             <input type="submit" value="Get Topics">
