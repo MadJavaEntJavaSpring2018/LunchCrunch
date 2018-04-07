@@ -73,7 +73,6 @@ public class RestService {
     @Path("/appointments")
     public Response getAllAppointmentsForUser(@QueryParam("apiKey") String apiKey) {
 
-<<<<<<< HEAD
         UserApi userApi = new UserApi();
         int id = userApi.getUserId(apiKey);
 
@@ -88,8 +87,6 @@ public class RestService {
         }
     }
 
-=======
->>>>>>> 94d9275a7a59bd5c9edf550ced40075935e11076
     /**
      * Gets all appointments user and returns it as json.
      *

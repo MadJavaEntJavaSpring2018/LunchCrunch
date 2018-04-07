@@ -43,7 +43,9 @@
                 </h2>
             </pre>
         </div>
+
         <br/><br/>
+        
         <h3>UserApi</h3>
         <form action="services/lunchcrunch/users" method="GET">
             <b>GET Function: /users?apiKey=...</b><br/>
@@ -74,19 +76,8 @@
             API Key <input type="text" name="apiKey">
         </form>
 
-<<<<<<< HEAD
 
-        <br/><br/>
-=======
-        <br><br>
-        <h3>Get all Topics</h3>
-
-        <form action="services/lunchcrunch/topics/1234567890" method="GET">
-            <input type="submit" value="Get Topics">
-        </form>
-
-    </div>
->>>>>>> 94d9275a7a59bd5c9edf550ced40075935e11076
+        <br/>
 
 
         <h3>AppointmentApi</h3>
@@ -133,13 +124,10 @@
         </form>
         <br>
 
-    <h3>Get all Topics</h3>
-
-    <form action="services/lunchcrunch/topics/1234567890" method="GET">
-
+        <h3>Get all Topics</h3>
+        <form action="services/lunchcrunch/topics/1234567890" method="GET">
         <input type="submit" value="Get Topics">
-
-    </form>
+        </form>
 
     </div>
 </div>
