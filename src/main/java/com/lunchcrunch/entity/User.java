@@ -43,10 +43,16 @@ public class User {
     @Column(name = "organization")
     private String organization;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Appointment> appointments = new HashSet<Appointment>();
 
+    //    @JsonIgnore
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+//    private Set<Appointment> appointments = new HashSet<>();
+
+    //    @JsonIgnore
+//    @ManyToOne
+//    @JoinColumn(name = "topic_id",
+//            foreignKey = @ForeignKey(name = "appointment_topic_id_fk"))
+//    private Topic topic = new Topic();
 
 
     /**
@@ -58,7 +64,7 @@ public class User {
     /**
      * Instantiates a new User.
      *
-     * @param apiKey          the apiKey
+     * @param apiKey       the apiKey
      * @param active       the active
      * @param dateActive   the date active
      * @param firstName    the first name
@@ -204,6 +210,44 @@ public class User {
     public void setOrganization(String organization) {
         this.organization = organization;
     }
+
+
+
+    /**
+     * Gets appointments.
+     *
+     * @return the appointments
+     */
+//    public Set<Appointment> getAppointments() {
+//        return appointments;
+//    }
+
+    /**
+     * Sets appointments.
+     *
+     * @param appointments the appointments
+     */
+//    public void setAppointments(Set<Appointment> appointments) {
+//        this.appointments = appointments;
+//    }
+
+    /**
+     * Gets topic.
+     *
+     * @return the topic
+     */
+//    public Topic getTopic() {
+//        return topic;
+//    }
+
+    /**
+     * Sets topic.
+     *
+     * @param topic the topic
+     */
+//    public void setTopic(Topic topic) {
+//        this.topic = topic;
+//    }
 
     @Override
     public boolean equals(Object o) {
