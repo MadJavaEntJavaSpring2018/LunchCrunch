@@ -15,14 +15,9 @@
         <a href="#">New! coming soon</a>
     </header>
 
-
-    <div id="sidebar">
-
-    </div>
-
     <div id="content">
         <br>
-        <div><pre><h2>
+        <div><pre><br><h2>
                 The LunchCrunch API allows people of an organization to connect with
                 each other to discuss certain topics at specific locations and
                 meeting times.
@@ -119,12 +114,15 @@
 
         <br>
 
-        <h3>Get all Topics</h3>
-        <form action="services/lunchcrunch/topics/1234567890" method="GET">
-        <input type="submit" value="Get Topics">
+        <h3>TopicApi</h3>
+        <form action="services/lunchcrunch/topics" method="GET">
+            <b>TopicApi GET Function: /topics?apiKey=...</b><br/>
+            <input type="submit" value="Get Topics">
+            API Key <input type="text" name="apiKey" value="0998877543">
         </form>
 
     </div>
+
 </div>
 </body>
 </html>
