@@ -16,6 +16,7 @@ public class LocationApi {
     private final Logger logger = LogManager.getLogger(this.getClass());
     private static final String INVALID_API_KEY = "Invalid Key";
     private static final String NOTHING_FOUND = "";
+    private static final String NEW_LOCATION_ADD = "New Location added";
 
     GenericDao genericDao = new GenericDao(Location.class);
     /**
@@ -24,45 +25,46 @@ public class LocationApi {
     public LocationApi() {
     }
     /**
+     * Add a location.
+     *
+     * If the appointment Id was sent, then update otherwise insert
+     *
+     * @param id          The API key
+     * @param userId  The user id
+     * @param description The description
+     *
+     * @return all locations in json format
+     */
+    public String addLocation(int id, int userId, String description) {
+
+        int newLocationId = 0;
+        String message = " ";
+            newLocationId = createLocation(userId, description);
+            message = (NEW_LOCATION_ADD + " " + "id = " + newLocationId);
+        return message;
+    }
+    /**
      * Add location
      *
      * @param userId      the user id
      * @param description the description
      * @return the string
      */
-    public String createLocation(int userId, String description) {
+    public int createLocation(int userId, String description) {
 
         GenericDao userDao      = new GenericDao(User.class);
-        Location location       = new Location();
 
         User user               = (User) userDao.getById(userId);
-        description             = location.getDescription();
 
         Location newLocation = new Location(user, description);
-        genericDao.insert(newLocation);
-
-        return "Location added";
+        return genericDao.insert(newLocation);
     }
     /**
-     * Delete location
+     * Get all locations for the organization.
      *
-     * @param userId      the user id
-     * @param description the description
-     * @return the string
+     * @param
+     * @return all locations in json format
      */
-    public String deleteLocation(int userId, String description) {
-
-        GenericDao userDao      = new GenericDao(User.class);
-        Location location       = new Location();
-
-        User user               = (User) userDao.getById(userId);
-        description             = location.getDescription();
-
-        Location deleteLocation = new Location(user, description);
-        genericDao.delete(deleteLocation);
-
-        return "Location deleted";
-    }
     public String getAllLocations(String apiKey) {
 
         UserApi userApi = new UserApi();

@@ -208,20 +208,28 @@ public class RestService {
     /**
      * Add a new location
      *
+     * @param apikey       the api key
      * @param userId       the User Id
      * @param description  the Description
      * @return the response
      */
     @POST
     @Path("/locations")
-    public Response createLocation(@FormParam("userId")        int userId,
-                                   @FormParam("description")   String description) {
+    public Response addLocation(@FormParam("apikey")        String apikey,
+                                @FormParam("userId")        int userId,
+                                @FormParam("description")   String description) {
 
-        logger.info(userId + " " + description + " ");
+        UserApi userApi = new UserApi();
+        int id = userApi.getUserId(apikey);
 
         LocationApi locationApi = new LocationApi();
-        String jsonString        = locationApi.createLocation(userId, description);
-        return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+        String jsonString        = locationApi.addLocation(id, userId, description);
+
+        if (jsonString.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+        } else {
+            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+        }
     }
 
     /**
