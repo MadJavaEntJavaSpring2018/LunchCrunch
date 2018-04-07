@@ -73,6 +73,7 @@ public class RestService {
     @Path("/appointments")
     public Response getAllAppointmentsForUser(@QueryParam("apiKey") String apiKey) {
 
+<<<<<<< HEAD
         UserApi userApi = new UserApi();
         int id = userApi.getUserId(apiKey);
 
@@ -87,6 +88,8 @@ public class RestService {
         }
     }
 
+=======
+>>>>>>> 94d9275a7a59bd5c9edf550ced40075935e11076
     /**
      * Gets all appointments user and returns it as json.
      *
@@ -187,12 +190,12 @@ public class RestService {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/topics")
-    public Response getAllTopics() {
+    @Path("/topics/{key}")
+    public Response getAllTopics(@PathParam("key") String userKey) {
 
         TopicApi currentTopicApi = new TopicApi();
 
-        String jsonString        = currentTopicApi.getAllTopics();
+        String jsonString        = currentTopicApi.getAllTopics(userKey);
 
         if (jsonString.isEmpty()) {
             return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
@@ -201,6 +204,4 @@ public class RestService {
         }
 
     }
-
-
 }

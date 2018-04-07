@@ -74,8 +74,19 @@
             API Key <input type="text" name="apiKey">
         </form>
 
+<<<<<<< HEAD
 
         <br/><br/>
+=======
+        <br><br>
+        <h3>Get all Topics</h3>
+
+        <form action="services/lunchcrunch/topics/1234567890" method="GET">
+            <input type="submit" value="Get Topics">
+        </form>
+
+    </div>
+>>>>>>> 94d9275a7a59bd5c9edf550ced40075935e11076
 
 
         <h3>AppointmentApi</h3>
@@ -121,6 +132,14 @@
             API Key <input type="text" name="apiKey">
         </form>
         <br>
+
+    <h3>Get all Topics</h3>
+
+    <form action="services/lunchcrunch/topics/1234567890" method="GET">
+
+        <input type="submit" value="Get Topics">
+
+    </form>
 
     </div>
 </div>
