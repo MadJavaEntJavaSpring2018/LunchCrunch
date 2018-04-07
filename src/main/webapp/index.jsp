@@ -15,14 +15,9 @@
         <a href="#">New! coming soon</a>
     </header>
 
-
-    <div id="sidebar">
-
-    </div>
-
     <div id="content">
         <br>
-        <div><pre><h2>
+        <div><pre><br><h2>
                 The LunchCrunch API allows people of an organization to connect with
                 each other to discuss certain topics at specific locations and
                 meeting times.
