@@ -97,7 +97,7 @@
         <form action="services/lunchcrunch/appointments/appointment" method="GET">
             <b>GET Function: /appointments/appointment?appointment=value</b><br/>
                            <input type="submit" value="Find appointment by appointment ID">
-            Appointment Id <input type="text" name="appointment" value=13>
+            Appointment Id <input type="text" name="appointment">
         </form>
         <br/>
         <form action="services/lunchcrunch/appointments" method="POST">
@@ -115,23 +115,12 @@
             Appointment id <input type="text" name="appointmentid" value=5 required>
             Date Time      <input type="datetime-local" name="datetime" value="2018-06-07T11:46" required>
         </form>
-        <br/>
-
-
-        <br>
-
-        <h3>TopicApi</h3>
-        <form action="services/lunchcrunch/topics" method="GET">
-            <b>TopicApi GET Function: /topics?apiKey=...</b><br/>
-            <input type="submit" value="Get Topics">
-            API Key <input type="text" name="apiKey" value="0998877543">
-        </form>
 
         <br>
 
         <h3>LocationApi</h3>
         <form action="services/lunchcrunch/locations" method="GET">
-            <b>TopicApi GET Function: /locations?apiKey=...</b><br/>
+            <b>GET Function: /locations?apiKey=...</b><br/>
             <input type="submit" value="Get Locations">
             API Key <input type="text" name="apiKey" value="0998877543">
         </form>
@@ -141,6 +130,15 @@
             User id <input type="text" name="userId" value=4 required>
             Description  <input type="text" name="description" value="Collaboration Area 3" required>
         </form>
+
+        <h3>TopicApi</h3>
+        <form action="services/lunchcrunch/topics" method="GET">
+            <b>GET Function: /topics?apiKey=...</b><br/>
+            <input type="submit" value="Get Topics">
+            API Key <input type="text" name="apiKey" value="0998877543">
+        </form>
+
+
 
     </div>
 
