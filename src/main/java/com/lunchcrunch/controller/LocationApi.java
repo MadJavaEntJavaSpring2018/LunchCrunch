@@ -29,9 +29,9 @@ public class LocationApi {
      *
      * If the appointment Id was sent, then update otherwise insert
      *
-     * @param id          The API key
-     * @param userId  The user id
-     * @param description The description
+     * @param id            The API key
+     * @param userId        The user id
+     * @param description   The description
      *
      * @return all locations in json format
      */
