@@ -55,6 +55,55 @@ class AppointmentDaoTest {
     }
 
     /**
+     * Verify getting all appointment for a specific users
+     */
+    @Test
+    void getAllAppointmentsForUser() {
+
+        List<Appointment> appointments =
+                (List<Appointment>)dao.getByColumnInt("user", 1);
+
+        assertNotNull(appointments);
+        for (Appointment index : appointments) {
+            logger.info("appointment" + index.toString());
+        }
+        assertEquals(4, appointments.size());
+    }
+
+    /**
+     * Verify getting all appointment for a specific location
+     */
+    @Test
+    void getAllAppointmentsForLocation() {
+
+        List<Appointment> appointments =
+                (List<Appointment>)dao.getByColumnInt("location", 1);
+
+        assertNotNull(appointments);
+        for (Appointment index : appointments) {
+            logger.info("appointment" + index.toString());
+        }
+        assertEquals(2, appointments.size());
+    }
+
+    /**
+     * Verify getting all appointment for a specific topic
+     */
+    @Test
+    void getAllAppointmentsForTopic() {
+
+        List<Appointment> appointments =
+                (List<Appointment>)dao.getByColumnInt("topic", 1);
+
+        assertNotNull(appointments);
+        for (Appointment index : appointments) {
+            logger.info("appointment" + index.toString());
+        }
+        assertEquals(3, appointments.size());
+    }
+
+
+    /**
      * Verify that an appointment can be added for a user, topic and location they chose
      */
     @Test

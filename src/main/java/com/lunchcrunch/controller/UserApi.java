@@ -32,7 +32,6 @@ public class UserApi {
     private static final String BAD_REQUEST_MSG = "Bad Request";
     private static final String SERVICE_UNAVAILABLE_MSG = "Service Unavailable";
 
-
     /**
      * The User dao.
      */
@@ -77,7 +76,6 @@ public class UserApi {
      * @return Response
      */
     public Response processUser(String apiKey, String firstName, String lastName, String organization) {
-
 
         // No apiKey passed, so try to add the user
         if ((apiKey==null || apiKey.isEmpty())) {
