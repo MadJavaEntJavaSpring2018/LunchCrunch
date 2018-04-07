@@ -45,7 +45,7 @@
         </div>
 
         <br/><br/>
-        
+
         <h3>UserApi</h3>
         <form action="services/lunchcrunch/users" method="GET">
             <b>GET Function: /users?apiKey=...</b><br/>
@@ -55,7 +55,7 @@
         <br/>
         <form action="services/lunchcrunch/users" method="POST">
             <b>POST Function: /users?apiKey=...&firstname=...&lastname=...&organization=...</b><br/>
-            <input type="submit" value="Add a User">
+                         <input type="submit" value="Add a User">
             First Name   <input type="text" name="firstname">
             Last Name    <input type="text" name="lastname">
             Organization <input type="text" name="organization">
@@ -63,7 +63,7 @@
         <br/>
         <form action="services/lunchcrunch/users" method="POST">
             <b>POST Function: /users?apiKey=...&firstname=...&lastname=...&organization=...</b><br/>
-            <input type="submit" value="Update a User">
+                         <input type="submit" value="Update a User">
             API Key      <input type="text" name="apiKey">
             First Name   <input type="text" name="firstname">
             Last Name    <input type="text" name="lastname">
@@ -72,7 +72,7 @@
         <br/>
         <form action="services/lunchcrunch/users" method="POST">
             <b>POST Function: /users?apiKey=...</b><br/>
-            <input type="submit" value="Delete User">
+                    <input type="submit" value="Delete User">
             API Key <input type="text" name="apiKey">
         </form>
 
@@ -82,46 +82,41 @@
 
         <h3>AppointmentApi</h3>
         <form action="services/lunchcrunch/appointments" method="GET">
-            <b>GET Function: /appointments?apiKey=...</b><br/>
-            <input type="submit" value="Find all appointments for a user">
+            <b>GET Function: /appointments?apiKey=value</b><br/>
+                    <input type="submit" value="Find all appointments for a user">
             API Key <input type="text" name="apiKey" value="1234567890">
         </form>
         <br/>
         <form action="services/lunchcrunch/appointments/location" method="GET">
-            <b>GET Function: /appointments?apiKey=...</b><br/>
-            <input type="submit" value="Find appointments by location">
-            API Key <input type="text" name="location" value=4>
+            <b>GET Function: /appointments/location?location=value</b><br/>
+                    <input type="submit" value="Find appointments by location">
+            Location Id <input type="text" name="location" value=4>
         </form>
         <br/>
         <form action="services/lunchcrunch/appointments/topic" method="GET">
-            <b>GET Function: /appointments?apiKey=...</b><br/>
-            <input type="submit" value="Find appointments by topic">
-            API Key <input type="text" name="topic" value=2>
+            <b>GET Function: /appointments/topic?topic=value</b><br/>
+                     <input type="submit" value="Find appointments by topic">
+            Topic Id <input type="text" name="topic" value=2>
         </form>
         <br/>
         <form action="services/lunchcrunch/appointments" method="POST">
-            <b>POST Function: /appointments?apiKey=...&firstname=...&lastname=...&organization=...</b><br/>
-            <input type="submit" value="Add Appointment">
-            First Name <input type="text" name="firstname">
-            Last Name <input type="text" name="lastname">
-            Organization <input type="text" name="organization">
+            <b>POST Function: /appointments?apiKey=value&location=value&topic=value&datetime=value</b><br/>
+                         <input type="submit" value="Add Appointment">
+            API key      <input type="text" name="apikey" value="1122334455" required>
+            Location Id  <input type="text" name="locationid" value=3 required>
+            Topic Id     <input type="text" name="topicid" value=4 required>
+            Date Time    <input type="datetime-local" name="datetime" value="2018-05-07T11:46" required>
         </form>
         <br/>
         <form action="services/lunchcrunch/appointments" method="POST">
-            <b>POST Function: /appointments?apiKey=...&firstname=...&lastname=...&organization=...</b><br/>
-            <input type="submit" value="Update Appointment">
-            API Key <input type="text" name="apiKey">
-            Fir
-            st Name <input type="text" name="firstname">
-            Last Name <input type="text" name="lastname">
-            Organization <input type="text" name="organization">
+            <b>POST Function: /appointments?appointmentid=value?&datetime=value</b><br/>
+                           <input type="submit" value="Update Appointment">
+            Appointment id <input type="text" name="appointmentid" value=5 required>
+            Date Time      <input type="datetime-local" name="datetime" value="2018-06-07T11:46" required>
         </form>
         <br/>
-        <form action="services/lunchcrunch/appointments" method="POST">
-            <b>POST Function: /appointments?apiKey=...</b><br/>
-            <input type="submit" value="Delete Appointment">
-            API Key <input type="text" name="apiKey">
-        </form>
+
+
         <br>
 
         <h3>Get all Topics</h3>

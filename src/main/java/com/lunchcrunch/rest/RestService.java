@@ -63,11 +63,11 @@ public class RestService {
         return userApi.processUser(apiKey, firstName, lastName, organization);
     }
 
-    /**
-     * Gets all appointments user and returns it as json.
+
+    /** Gets all appointments for a specific user and returns it as json.
      *
      * @param apiKey the api key
-     * @return the all users
+     * @return the all appointments
      */
     @GET
     @Path("/appointments")
@@ -77,7 +77,6 @@ public class RestService {
         int id = userApi.getUserId(apiKey);
 
         AppointmentApi appointApi = new AppointmentApi();
-
         String jsonString           = appointApi.getAllAppointments(id);
 
         if (jsonString.isEmpty()) {
@@ -87,11 +86,12 @@ public class RestService {
         }
     }
 
+
     /**
-     * Gets all appointments user and returns it as json.
+     * Gets all appointments for a specific location.
      *
-     * @param apiKey the api key
-     * @return the all users
+     * @param location the Location id
+     * @return the appointments
      */
     @GET
     @Path("/appointments/location")
@@ -108,18 +108,18 @@ public class RestService {
         }
     }
 
+
     /**
-     * Gets all appointments user and returns it as json.
+     * Gets all appointments for a specific topic and returns it as json.
      *
-     * @param apiKey the api key
-     * @return the all users
+     * @param topic the Topic Id
+     * @return the all appointments
      */
     @GET
     @Path("/appointments/topic")
     public Response getAllAppointmentsByTopic(@QueryParam("topic") int topic) {
 
         AppointmentApi appointApi = new AppointmentApi();
-
         String jsonString           = appointApi.getAllAppointmentsByTopic(topic);
 
         if (jsonString.isEmpty()) {
@@ -130,29 +130,28 @@ public class RestService {
     }
 
 
-
     /**
-     * Create appointment response.
+     * Add a new appointment
      *
-     * @param userId    the user id
-     * @param firstName the first name
+     * @param apikey       the api key
+     * @param location     the Location Id
+     * @param topic        the Topic Id
+     * @param datetime     the meeting date/time
      * @return the response
      */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/appointments/get/{userId}")
-    public Response createAppointment(@PathParam("userId") int userId,
-                                      @QueryParam("name") String firstName) {
+    @POST
+    @Path("/appointments")
+    public Response addUpdateAppointment(@FormParam("apikey")        String apikey,
+                                         @FormParam("appointmentid") int    appointment,
+                                         @FormParam("locationid")    int    location ,
+                                         @FormParam("topicid")       int    topic,
+                                         @FormParam("datetime")      String datetime) {
 
-        logger.info("I passed the user id with @PathParam   : " + userId);
-        logger.info("I passed the fist name with @QueryParam: " + firstName);
-        //logger.info("WHAT THE HECk: {} {} {} {} " + userId + locationId );
-        AppointmentApi appointApi = new AppointmentApi();
-
-        //String response = appointApi.addAppointment(userId,locationId,topicId,LocalDateTime.parse(date));
-
-        return Response.ok("ok", MediaType.TEXT_PLAIN).build();
+        logger.info(apikey + " " + appointment + " " + location + " " + topic + " " + datetime);
+        
+        return Response.status(Response.Status.NOT_FOUND).entity("going to add").build();
     }
+
 
     /**
      * Gets all locations.
