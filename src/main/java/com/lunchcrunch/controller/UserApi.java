@@ -32,7 +32,6 @@ public class UserApi {
     private static final String BAD_REQUEST_MSG = "Bad Request";
     private static final String SERVICE_UNAVAILABLE_MSG = "Service Unavailable";
 
-
     /**
      * The User dao.
      */
