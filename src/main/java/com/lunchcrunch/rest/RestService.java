@@ -141,12 +141,12 @@ public class RestService {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/topics/{key}")
-    public Response getAllTopics(@PathParam("key") String userKey) {
+    @Path("/topics")
+    public Response getAllTopics(@QueryParam("apiKey") String apiKey) {
 
         TopicApi currentTopicApi = new TopicApi();
 
-        String jsonString        = currentTopicApi.getAllTopics(userKey);
+        String jsonString        = currentTopicApi.getAllTopics(apiKey);
 
         if (jsonString.isEmpty()) {
             return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
