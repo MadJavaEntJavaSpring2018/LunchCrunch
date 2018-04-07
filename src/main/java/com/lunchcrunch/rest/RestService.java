@@ -63,20 +63,22 @@ public class RestService {
         return userApi.processUser(apiKey, firstName, lastName, organization);
     }
 
-
     /**
-     * Gets all appointments.
+     * Gets all appointments user and returns it as json.
      *
-     * @return the all appointments
+     * @param apiKey the api key
+     * @return the all users
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("/appointments")
-    public Response getAllAppointments() {
+    public Response getAllAppointmentsForUser(@QueryParam("apiKey") String apiKey) {
 
-        AppointmentApi appointApi   = new AppointmentApi();
+        UserApi userApi = new UserApi();
+        int id = userApi.getUserId(apiKey);
 
-        String jsonString           = appointApi.getAllAppointments();
+        AppointmentApi appointApi = new AppointmentApi();
+
+        String jsonString           = appointApi.getAllAppointments(id);
 
         if (jsonString.isEmpty()) {
             return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
@@ -84,6 +86,50 @@ public class RestService {
             return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
         }
     }
+
+    /**
+     * Gets all appointments user and returns it as json.
+     *
+     * @param apiKey the api key
+     * @return the all users
+     */
+    @GET
+    @Path("/appointments/location")
+    public Response getAllAppointmentsByLocation(@QueryParam("location") int location) {
+
+        AppointmentApi appointApi = new AppointmentApi();
+
+        String jsonString           = appointApi.getAllAppointmentsByLocation(location);
+
+        if (jsonString.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+        } else {
+            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+        }
+    }
+
+    /**
+     * Gets all appointments user and returns it as json.
+     *
+     * @param apiKey the api key
+     * @return the all users
+     */
+    @GET
+    @Path("/appointments/topic")
+    public Response getAllAppointmentsByTopic(@QueryParam("topic") int topic) {
+
+        AppointmentApi appointApi = new AppointmentApi();
+
+        String jsonString           = appointApi.getAllAppointmentsByTopic(topic);
+
+        if (jsonString.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+        } else {
+            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+        }
+    }
+
+
 
     /**
      * Create appointment response.
@@ -155,6 +201,4 @@ public class RestService {
         }
 
     }
-
-
 }

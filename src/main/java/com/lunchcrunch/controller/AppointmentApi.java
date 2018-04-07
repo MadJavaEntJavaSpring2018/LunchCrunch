@@ -11,6 +11,8 @@ import com.lunchcrunch.persistence.GenericDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
@@ -64,15 +66,75 @@ public class AppointmentApi {
         return "ok";
     }
 
+
+//    /**
+//     * This processUser method can add, update and delete a user.
+//     *
+//     * @param apiKey
+//     * @param firstName
+//     * @param lastName
+//     * @param organization
+//     * @return Response
+//     */
+//    public Response processAppointment(String apiKey) {
+//
+//        if (apiKey == null || apiKey.isEmpty()) {
+//            return Response.status(Response.Status.BAD_REQUEST).entity(BAD_REQUEST_MSG).build();
+//        }
+//
+//        String jsonString = getSpecificUser(apiKey);
+//
+//        if (jsonString.isEmpty() || jsonString.equals(INVALID_KEY_MSG)) {
+//            ret
+// urn Response.status(Response.Status.NOT_FOUND).entity(NOTHING_FOUND_MSG).build();
+//        } else {
+//            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
+//        }
+//    }
+
     /**
-     * Get all appointments.
+     * Get all appointments for the organization.
      *
      * @param
      * @return all appointments in json format
      */
-    public String getAllAppointments() {
+    public String getAllAppointments(int userid) {
 
-        List<Appointment> appointments = (List<Appointment>) dao.getAll();
+        List<Appointment> appointments = (List<Appointment>) dao.getByColumnInt("user", userid);
+
+        if (appointments.size() > 0) {
+            return parseObjectIntoJson(appointments);
+        } else {
+            return NOTHING_FOUND;
+        }
+    }
+
+    /**
+     * Get all appointments for the organization.
+     *
+     * @param
+     * @return all appointments in json format
+     */
+    public String getAllAppointmentsByLocation(int location) {
+
+        List<Appointment> appointments = (List<Appointment>) dao.getByColumnInt("location", location);
+
+        if (appointments.size() > 0) {
+            return parseObjectIntoJson(appointments);
+        } else {
+            return NOTHING_FOUND;
+        }
+    }
+
+    /**
+     * Get all appointments for the organization.
+     *
+     * @param
+     * @return all appointments in json format
+     */
+    public String getAllAppointmentsByTopic(int topic) {
+
+        List<Appointment> appointments = (List<Appointment>) dao.getByColumnInt("topic", topic);
 
         if (appointments.size() > 0) {
             return parseObjectIntoJson(appointments);

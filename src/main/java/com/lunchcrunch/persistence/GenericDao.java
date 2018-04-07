@@ -6,6 +6,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 
+import com.lunchcrunch.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -49,57 +50,6 @@ public class GenericDao<T> {
         T entity = (T) session.get(type, id);
         session.close();
         return entity;
-
-    }
-
-    /**
-     * update entity
-     * @param entity the entity to be inserted or updated
-     */
-    public void saveOrUpdate(T entity) {
-
-        logger.debug("Updating " + entity.getClass().getName());
-
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(entity);
-        transaction.commit();
-        session.close();
-
-    }
-
-    /**
-     * insert entity
-     * @param entity the entity to be inserted
-     */
-    public int insert(T entity) {
-
-        logger.debug("Inserting into " + entity.getClass().getName());
-
-        int id = 0;
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        id = (int)session.save(entity);
-        transaction.commit();
-        session.close();
-        return id;
-
-    }
-
-    /**
-     * Deletes the entity.
-     *
-     * @param entity entity to be deleted
-     */
-    public void delete(T entity) {
-
-        logger.debug("Deleting from " + entity.getClass().getName());
-
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        session.delete(entity);
-        transaction.commit();
-        session.close();
     }
 
     /**
@@ -120,8 +70,8 @@ public class GenericDao<T> {
         List<T> list = session.createQuery(query).getResultList();
         session.close();
         return list;
-
     }
+
 
     /**
      * Get user by property (exact match)
@@ -141,7 +91,26 @@ public class GenericDao<T> {
 
         session.close();
         return entities;
+    }
 
+    /**
+     * This function gets by a column, and searches by a term.
+     * @return a list of items
+     */
+    public List<T> getByColumnInt(String column, int term) {
+
+        logger.debug("Searching for Patient with {} = {}",  column, term);
+
+        Session          session = sessionFactory.openSession();
+        CriteriaBuilder  builder = session.getCriteriaBuilder();
+        CriteriaQuery<T> query   = builder.createQuery(type);
+        Root<T>          root    = query.from(type);
+
+        query.select(root).where(builder.equal(root.get(column), term));
+        List<T> list = session.createQuery( query ).getResultList();
+        session.close();
+
+        return list;
     }
 
     /**
@@ -165,6 +134,55 @@ public class GenericDao<T> {
         session.close();
         return entities;
 
+    }
+
+
+    /**
+     * update entity
+     * @param entity the entity to be inserted or updated
+     */
+    public void saveOrUpdate(T entity) {
+
+        logger.debug("Updating " + entity.getClass().getName());
+
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.saveOrUpdate(entity);
+        transaction.commit();
+        session.close();
+    }
+
+    /**
+     * insert entity
+     * @param entity the entity to be inserted
+     */
+    public int insert(T entity) {
+
+        logger.debug("Inserting into " + entity.getClass().getName());
+
+        int id = 0;
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        id = (int)session.save(entity);
+        transaction.commit();
+        session.close();
+        return id;
+    }
+
+    /**
+     * Deletes the entity.
+     *
+     * @param entity entity to be deleted
+     */
+    public void delete(T entity) {
+
+        logger.debug("Deleting from " + entity.getClass().getName());
+
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(entity);
+        transaction.commit();
+        session.close();
     }
 
 }
