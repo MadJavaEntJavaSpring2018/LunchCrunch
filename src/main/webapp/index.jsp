@@ -128,8 +128,8 @@
 
         <form action="services/lunchcrunch/topics" method="GET">
             <b>TopicApi GET Function: /topics?apiKey=...</b><br/>
-            API Key <input type="text" name="apiKey" value="0998877543">
             <input type="submit" value="Get Topics">
+            API Key <input type="text" name="apiKey" value="0998877543">
         </form>
 
     </div>
