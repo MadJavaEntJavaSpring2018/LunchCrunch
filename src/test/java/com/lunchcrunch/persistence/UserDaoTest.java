@@ -11,7 +11,7 @@ import com.lunchcrunch.test.util.Database;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * A class to test the pack dao.
+ * A class to test the User dao.
  *
  * @author mchoinoski
  */

@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * A class to test the pack dao.
+ * A class to test the Location dao.
  *
  * @author Brian Chase
  */

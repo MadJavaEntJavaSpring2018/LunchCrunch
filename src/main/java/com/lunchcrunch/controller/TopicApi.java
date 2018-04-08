@@ -19,6 +19,14 @@ public class TopicApi {
 
     GenericDao dao = new GenericDao(Topic.class);
 
+
+    /**
+     * The parseIntoJson method takes the List of Topic objects and parses them into a json string
+     *
+     * @param topics
+     * @return
+     */
+
     public String getAllTopics(String apiKey) {
 
         UserApi userApi = new UserApi();
@@ -40,8 +48,8 @@ public class TopicApi {
     /**
      * The parseIntoJson method takes the List of Topic objects and parses them into a json string
      *
-     * @param topics
-     * @return
+     * @param topics a list of topics that will be converted into a string
+     * @return a string of json
      */
     private String parseObjectIntoJson(List<Topic> topics) {
 
@@ -56,7 +64,7 @@ public class TopicApi {
         try {
             for (Topic thisTopic : topics) {
                 jsonObjCount += 1;
-                jsonString += mapper.writeValueAsString(thisTopic);
+                jsonString += mapper.writerWithDefaultPrettyPrinter().writeValueAsString(thisTopic);
 
                 if (jsonObjCount < topics.size()) {
                     jsonString += ",";

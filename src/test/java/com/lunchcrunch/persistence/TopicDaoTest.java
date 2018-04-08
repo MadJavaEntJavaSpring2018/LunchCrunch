@@ -13,6 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * A class to test the Topic dao.
+ *
+ * @author mchoinoski
+ */
 public class TopicDaoTest {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
@@ -60,7 +65,7 @@ public class TopicDaoTest {
     }
 
     /**
-     * Verify that an topic can be added for a user and description they chose
+     * Verify that a topic can be added for a user and description they chose
      */
     @Test
     void addTopic() {
