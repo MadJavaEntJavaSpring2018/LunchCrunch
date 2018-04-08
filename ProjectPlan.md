@@ -2,33 +2,30 @@
 
 ## Week 1
  - [x] Create project repository on GitHub
- -	[ ] Create project structure in intellij and push
+ -	[x] Create project structure in intellij and push
  -	[x] Complete Problem Statement
  -	[x] List technologies, versions and how they will be used
  -	[x] Write Project Plan
- -	[ ] Write Screen Design  
- -	[ ] Write Application FLow
- - [ ] Complete database design
+  - [x] Complete database design
  -	[x] Create the database, user table, topic table, appointment table and location tables
  -	[x] Create the user, topic, appointment, and location entity classes and annotate for hibernate
  -	[x] Create generic dao
- -	[ ] Set up logging
+ -	[x] Set up logging
  -	[x] Create unit tests using generic dao
- -	[ ] Create class uml diagram
  - [x] Weekly Time Log entry
 
   
 	
 ## Week 2
- -	[ ] Create the test database, user table, topic table, appointment, and location tables 
- -	[ ] add jsps to display, add, update, and delete user, topic, appointment, and location data
- - [ ] Weekly Time Log entry
- - [ ] Create the database, user table, topic table, appointment table, and location table on AWS
- - [ ] Deploy to AWS for first time
- - [ ] Code quality check
- - [ ] Create user documentation
- -	[ ] Create final presentation
- -	[ ] Finalize all documentation
+ -	[x] Create the test database, user table, topic table, appointment, and location tables 
+ -	[x] Add jsp to display, add, update, and delete user.  Add jsp to display, add, and update appointment.  Add jsp to display and add location.  Add jsp to display topic. 
+ - [x] Weekly Time Log entry
+ - [x] Create the database, user table, topic table, appointment table, and location table on AWS
+ - [x] Deploy to AWS for first time
+ - [x] Code quality check
+ - [x] Create user documentation
+ -	[x] Create final presentation
+ -	[x] Finalize all documentation
 
 
 
