@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * A class to test the pack dao.
+ * A class to test the Appointment dao.
  *
  * @author elise strauss
  */

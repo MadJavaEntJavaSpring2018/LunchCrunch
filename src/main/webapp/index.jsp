@@ -16,7 +16,7 @@
     </header>
 
     <div id="content">
-        <br>
+        <br/>
         <div><pre><br><h2>
                 The LunchCrunch API allows people of an organization to connect with
                 each other to discuss certain topics at specific locations and
@@ -116,7 +116,7 @@
             Date Time      <input type="datetime-local" name="datetime" value="2018-06-07T11:46" required>
         </form>
 
-        <br>
+        <br/>
 
         <h3>LocationApi</h3>
         <form action="services/lunchcrunch/locations" method="GET">
@@ -124,6 +124,7 @@
             <input type="submit" value="Get Locations">
             API Key <input type="text" name="apiKey" value="0998877543">
         </form>
+        <br/>
         <form action="services/lunchcrunch/locations" method="POST">
             <b>POST Function: /locations?apiKey=value?userId=value?&description=value</b><br/>
             <input type="submit" value="Add Location">
@@ -132,6 +133,8 @@
             Description  <input type="text" name="description" value="Collaboration Area 3" required>
         </form>
 
+        <br/>
+
         <h3>TopicApi</h3>
         <form action="services/lunchcrunch/topics" method="GET">
             <b>GET Function: /topics?apiKey=...</b><br/>
@@ -139,7 +142,7 @@
             API Key <input type="text" name="apiKey" value="0998877543">
         </form>
 
-
+        <br/><br/><br/>
 
     </div>
 
