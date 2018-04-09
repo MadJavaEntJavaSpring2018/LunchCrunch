@@ -15,8 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
+
 
 /**
  * The UserApi class contains all the methods needed by the LunchCrunch RestService class to
@@ -189,7 +188,7 @@ public class UserApi {
 
         String apiKey = generateApiKey();
 
-        User user = new User(apiKey, TRUE, LocalDateTime.now(), firstName, lastName, organisation);
+        User user = new User(apiKey, true, LocalDateTime.now(), firstName, lastName, organisation);
 
         int id = userDao.insert(user);
 
@@ -288,9 +287,9 @@ public class UserApi {
         List<User> users = userDao.getByPropertyEqual("apiKey", apiKey);
 
         if (users.size() == 0) {
-            return FALSE;
+            return false;
         } else {
-            return TRUE;
+            return true;
         }
     }
 
@@ -341,7 +340,7 @@ public class UserApi {
     private String generateApiKey() {
 
         String apiKey = "";
-        while (TRUE) {
+        while (true) {
             apiKey = generateRandomString();
             if (!validApiKey(apiKey)) {
                 break;
