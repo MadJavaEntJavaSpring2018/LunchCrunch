@@ -11,6 +11,11 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The LocationApi class contains all the methods needed by the LunchCrunch RestService class to
+ * create a location and read all locations on the location table.
+ */
+
 public class LocationApi {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
