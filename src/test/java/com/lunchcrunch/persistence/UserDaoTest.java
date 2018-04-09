@@ -56,17 +56,6 @@ class UserDaoTest {
     }
 
     @Test
-    void testGetAllUsers() {
-        UserApi userApi = new UserApi();
-        String jsonAllUsers = userApi.getAllUsers("1234567890");
-
-        logger.debug("All Users json:" + jsonAllUsers);
-
-        String testString = jsonAllUsers;
-        assertEquals(testString, jsonAllUsers);
-    }
-
-    @Test
     void testAddUser() {
         UserApi userApi = new UserApi();
         String apiKey = userApi.addUser("Fourie", "Jacques", "Great Lakes");
