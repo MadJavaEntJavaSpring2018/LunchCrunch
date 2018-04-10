@@ -1,14 +1,11 @@
 package com.lunchcrunch.controller;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lunchcrunch.entity.Location;
 import com.lunchcrunch.entity.User;
 import com.lunchcrunch.persistence.GenericDao;
+import com.lunchcrunch.persistence.JsonParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -24,6 +21,7 @@ public class LocationApi {
     private static final String NEW_LOCATION_ADD = "New Location added";
 
     GenericDao genericDao = new GenericDao(Location.class);
+    JsonParser jsonParser = new JsonParser(Location.class);
     /**
      * Instantiates a new Location api.
      */
@@ -81,42 +79,10 @@ public class LocationApi {
         List<Location> locations = (List<Location>) genericDao.getAll();
 
         if (locations.size() > 0) {
-            return parseObjectIntoJson(locations);
+            return jsonParser.parseObjectIntoJson(locations);
         } else {
             return NOTHING_FOUND;
         }
-    }
-    /**
-     * The parseIntoJson method takes the List of Location objects and parses them into a json string
-     *
-     * @param locations
-     * @return
-     */
-    private String parseObjectIntoJson(List<Location> locations) {
-        ObjectMapper mapper = new ObjectMapper();
-        String jasonOutput = "[";
-        int count = 0;
-
-        if (locations.size() == 0) {
-            return "";
-        }
-        try {
-            for (Location index : locations)  {
-                count = count + 1;
-                if (count == locations.size()) {
-                    jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + "]";
-                } else {
-                    jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + ",";
-                }
-            }
-        } catch (JsonGenerationException e) {
-            logger.error(e);
-        } catch (JsonMappingException e) {
-            logger.error(e);
-        } catch (IOException e) {
-            logger.error(e);
-        }
-        return jasonOutput;
     }
 }
 

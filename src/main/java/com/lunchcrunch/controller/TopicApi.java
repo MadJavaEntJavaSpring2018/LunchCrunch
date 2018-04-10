@@ -20,9 +20,15 @@ public class TopicApi {
     private static final String INVALID_API_KEY = "Invalid Key";
     private static final String NOTHING_FOUND = "";
 
+    /**
+     * The Dao.
+     */
     GenericDao dao        = new GenericDao(Topic.class);
-    JsonParser jsonParser = new JsonParser(Topic.class);
 
+    /**
+     * The Json parser.
+     */
+    JsonParser jsonParser = new JsonParser(Topic.class);
 
 
     /**
@@ -31,7 +37,6 @@ public class TopicApi {
      * @param apiKey the key that allows the user to use the LunchCrunch Service
      * @return a string of json containing all of the topics
      */
-
     public String getAllTopics(String apiKey) {
 
         UserApi userApi = new UserApi();

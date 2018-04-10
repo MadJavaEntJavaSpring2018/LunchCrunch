@@ -30,27 +30,54 @@ public class Topic implements Serializable {
     @JsonIgnore
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
+    /**
+     * Instantiates a new Topic.
+     */
     public Topic() {
     }
 
+    /**
+     * Instantiates a new Topic.
+     *
+     * @param description the description
+     */
     public Topic(String description) {
         this.description = description;
     }
 
 
-
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets description.
+     *
+     * @param description the description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
