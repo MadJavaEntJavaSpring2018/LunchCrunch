@@ -10,7 +10,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The AppointmentApi class contains all the methods needed by the LunchCrunch RestService class to
@@ -119,20 +121,35 @@ public class AppointmentApi {
      * @return all appointments in json format
      */
     public String maintainAppointment(int id, int appointment, int location, int topic, String datetime) {
+        GenericDao appointDao = new GenericDao(Appointment.class);
 
         int newAppointmentId = 0;
+        int appointmentId = 0;
         String message = " ";
 
         if (appointment == 0) {
             logger.info("This will be an add" + id + location + topic + datetime);
             newAppointmentId = addAppointment(id, location, topic, datetime);
             message = (NEW_APPOINTMENT_ADD + " " + "id = " + newAppointmentId);
+            appointmentId = newAppointmentId;
 
         } else {
             logger.info("This will be an update" + appointment + datetime);
             updateAppointment(appointment, datetime);
             message = (APPOINTMENT_UPDATED + " " + "id = " + appointment);
+            appointmentId = appointment;
         }
+
+        logger.info("Getting appointment by id:" + appointmentId);
+
+        Appointment appoint = (Appointment)appointDao.getById(appointmentId);
+
+        List<Appointment> appoints = new ArrayList<>();
+        appoints.add(appoint);
+
+        JsonParser jsonParser = new JsonParser(Appointment.class);
+        message = jsonParser.parseObjectIntoJson(appoints);
+
         return message;
     }
 
