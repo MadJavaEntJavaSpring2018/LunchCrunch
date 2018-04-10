@@ -17,7 +17,7 @@ public class LocationJsonTest {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     /**
-     * Verify location json is correct
+     * Verify location json is correct for the Get function
      */
     @Test
     void testGetAll() {
