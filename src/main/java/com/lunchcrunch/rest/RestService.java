@@ -190,7 +190,7 @@ public class RestService {
      * @return the all locations
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
     @Path("/locations")
     public Response getAllLocations(@QueryParam("apiKey") String apiKey) {
 
