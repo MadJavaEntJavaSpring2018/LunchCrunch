@@ -1,27 +1,16 @@
 package com.lunchcrunch.controller;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lunchcrunch.entity.Appointment;
 import com.lunchcrunch.entity.Location;
 import com.lunchcrunch.entity.Topic;
 import com.lunchcrunch.entity.User;
 import com.lunchcrunch.persistence.GenericDao;
+import com.lunchcrunch.persistence.JsonParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
 
 /**
  * The AppointmentApi class contains all the methods needed by the LunchCrunch RestService class to
@@ -35,7 +24,8 @@ public class AppointmentApi {
     private static final String NEW_APPOINTMENT_ADD = "New Appointment added";
     private static final String APPOINTMENT_UPDATED = "Appointment updated";
 
-    GenericDao dao = new GenericDao(Appointment.class);
+    GenericDao dao        = new GenericDao(Appointment.class);
+    JsonParser jsonParser = new JsonParser(User.class);
 
     /**
      * Instantiates a new Appointment api.
@@ -55,7 +45,7 @@ public class AppointmentApi {
         List<Appointment> appointments = (List<Appointment>) dao.getByColumnInt("user", userid);
 
         if (appointments.size() > 0) {
-            return parseObjectIntoJson(appointments);
+            return jsonParser.parseObjectIntoJson(appointments);
         } else {
             return NOTHING_FOUND;
         }
@@ -72,7 +62,7 @@ public class AppointmentApi {
         List<Appointment> appointments = (List<Appointment>) dao.getByColumnInt("location", location);
 
         if (appointments.size() > 0) {
-            return parseObjectIntoJson(appointments);
+            return jsonParser.parseObjectIntoJson(appointments);
         } else {
             return NOTHING_FOUND;
         }
@@ -89,7 +79,7 @@ public class AppointmentApi {
         List<Appointment> appointments = (List<Appointment>) dao.getByColumnInt("topic", topic);
 
         if (appointments.size() > 0) {
-            return parseObjectIntoJson(appointments);
+            return jsonParser.parseObjectIntoJson(appointments);
         } else {
             return NOTHING_FOUND;
         }
@@ -109,7 +99,7 @@ public class AppointmentApi {
         appointments.add(appointment1);
 
         if (appointments.size() > 0) {
-            return parseObjectIntoJson(appointments);
+            return jsonParser.parseObjectIntoJson(appointments);
         } else {
             return NOTHING_FOUND;
         }
@@ -190,38 +180,4 @@ public class AppointmentApi {
     }
 
 
-
-
-    /**
-     * The parseIntoJson method takes the List of Appointment objects and parses them into a json string
-     *
-     * @param appointments
-     * @return
-     */
-    private String parseObjectIntoJson(List<Appointment> appointments) {
-        ObjectMapper mapper = new ObjectMapper();
-        String jasonOutput = "[";
-        int count = 0;
-
-        if (appointments.size() == 0) {
-            return "";
-        }
-        try {
-            for (Appointment index : appointments)  {
-                count = count + 1;
-                if (count == appointments.size()) {
-                    jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + "]";
-                } else {
-                    jasonOutput = jasonOutput + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(index) + ",";
-                }
-            }
-        } catch (JsonGenerationException e) {
-            logger.error(e);
-        } catch (JsonMappingException e) {
-            logger.error(e);
-        } catch (IOException e) {
-            logger.error(e);
-        }
-        return jasonOutput;
-    }
 }
