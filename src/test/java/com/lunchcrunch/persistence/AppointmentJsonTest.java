@@ -14,6 +14,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Test Json retrieved from AWS LunchCrunch website for Appointment Api.
+ */
 public class AppointmentJsonTest {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
@@ -85,7 +88,7 @@ public class AppointmentJsonTest {
     }
 
     /**
-     * Verify json is retrieved by Location
+     * Verify json is retrieved by Appointment Id.
      */
     @Test
     void testGetByAppointmentId() {

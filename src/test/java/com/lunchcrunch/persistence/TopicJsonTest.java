@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Tests for Topic json.
+ * Test Json retrieved from AWS LunchCrunch website for Topic Api.
  */
 public class TopicJsonTest {
 

@@ -12,6 +12,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Test Json retrieved from AWS LunchCrunch website for Location Api.
+ */
 public class LocationJsonTest {
 
     private final Logger logger = LogManager.getLogger(this.getClass());

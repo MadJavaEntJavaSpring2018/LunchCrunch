@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Test Json retrieved from AWS LunchCrunch website for User Api.
+ */
 public class UserJsonTest {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
