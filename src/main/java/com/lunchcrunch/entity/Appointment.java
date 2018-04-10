@@ -94,6 +94,23 @@ public class Appointment implements Serializable {
         this.dateTime = dateTime;
     }
 
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
