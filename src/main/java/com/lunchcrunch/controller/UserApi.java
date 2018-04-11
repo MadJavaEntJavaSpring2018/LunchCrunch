@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lunchcrunch.entity.User;
 import com.lunchcrunch.persistence.GenericDao;
+import com.lunchcrunch.persistence.JsonParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,8 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
+
 
 /**
  * The UserApi class contains all the methods needed by the LunchCrunch RestService class to
@@ -36,6 +36,7 @@ public class UserApi {
      * The User dao.
      */
     GenericDao userDao = new GenericDao(User.class);
+
 
     /**
      * Instantiates a new User api.
@@ -189,7 +190,7 @@ public class UserApi {
 
         String apiKey = generateApiKey();
 
-        User user = new User(apiKey, TRUE, LocalDateTime.now(), firstName, lastName, organisation);
+        User user = new User(apiKey, true, LocalDateTime.now(), firstName, lastName, organisation);
 
         int id = userDao.insert(user);
 
@@ -218,27 +219,6 @@ public class UserApi {
     }
 
     /**
-     * Get all users.
-     *
-     * @param apiKey the api key
-     * @return all users in json format
-     */
-    public String getAllUsers(String apiKey) {
-
-        if (!validApiKey(apiKey)) {
-            return INVALID_API_KEY;
-        }
-
-        List<User> users = userDao.getAll();
-
-        if (users.size() > 0) {
-            return parseUserIntoJson(users);
-        } else {
-            return NOTHING_FOUND;
-        }
-    }
-
-    /**
      * Get specific user.
      *
      * @param apiKey the api key
@@ -254,7 +234,8 @@ public class UserApi {
         List<User> users = userDao.getByPropertyEqual("apiKey", apiKey);
 
         if (users.size() > 0) {
-            return parseUserIntoJson(users);
+            JsonParser jsonParser = new JsonParser(User.class);
+            return jsonParser.parseObjectIntoJson(users);
         } else {
             return NOTHING_FOUND;
         }
@@ -288,50 +269,12 @@ public class UserApi {
         List<User> users = userDao.getByPropertyEqual("apiKey", apiKey);
 
         if (users.size() == 0) {
-            return FALSE;
+            return false;
         } else {
-            return TRUE;
+            return true;
         }
     }
 
-
-    /**
-     * The parseIntoJson method takes the List of User objects and parses them into a json string
-     * @param users
-     * @return
-     */
-    private String parseUserIntoJson(List<User> users) {
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = "";
-        int jsonObjCount = 0;
-
-        if (users.size() == 0) {
-            return "";
-        }
-
-        try {
-            for (User thisUser : users) {
-                jsonObjCount += 1;
-                jsonString += mapper.writeValueAsString(thisUser);
-
-                if (jsonObjCount < users.size()) {
-                    jsonString += ",";
-                }
-            }
-            if (users.size() > 1) {
-                jsonString = "[" + jsonString + "]";
-            }
-        } catch (JsonGenerationException e) {
-            logger.error(e);
-        } catch (JsonMappingException e) {
-            logger.error(e);
-        } catch (IOException e) {
-            logger.error(e);
-        }
-
-        return jsonString;
-
-    }
 
     /**
      * The generateApiKey method generates the API Key
@@ -341,7 +284,7 @@ public class UserApi {
     private String generateApiKey() {
 
         String apiKey = "";
-        while (TRUE) {
+        while (true) {
             apiKey = generateRandomString();
             if (!validApiKey(apiKey)) {
                 break;
