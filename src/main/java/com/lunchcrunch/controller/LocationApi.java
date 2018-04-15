@@ -73,7 +73,8 @@ public class LocationApi {
         UserApi userApi = new UserApi();
         int id  =  userApi.getUserId(apiKey);
         if (id == -1) {
-            return INVALID_API_KEY;
+            return NOTHING_FOUND;
+//            return INVALID_API_KEY;
         }
 
         List<Location> locations = (List<Location>) genericDao.getAll();
